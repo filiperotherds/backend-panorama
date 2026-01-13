@@ -1,8 +1,7 @@
-import { Injectable } from "@nestjs/common";
+import { PrismaService } from '@/database/prisma/prisma.service'
+import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class VerficationsService {
-    async sendSms() {
-        
-    }
+  constructor(private prisma: PrismaService) {}
 }

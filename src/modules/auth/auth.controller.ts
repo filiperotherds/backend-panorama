@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Post, UsePipes } from '@nestjs/common'
+import { Body, Controller, Post, UsePipes } from '@nestjs/common'
 import { ZodValidationPipe } from 'src/common/pipes/zod-validation.pipe'
 import { AuthService } from './auth.service'
 import {
@@ -12,7 +12,7 @@ import {
 
 @Controller('/auth')
 export class AuthController {
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) { }
 
   @Post('/signin')
   @UsePipes(new ZodValidationPipe(signInBodySchema))
@@ -26,11 +26,5 @@ export class AuthController {
   @UsePipes(new ZodValidationPipe(signUpBodySchema))
   async signup(@Body() body: SignUpBodySchema) {
     await this.authService.singup(body)
-  }
-
-  @Post('/organization/signup')
-  @UsePipes(new ZodValidationPipe(signUpBodySchema))
-  async organizationSignup(@Body() body: SignUpBodySchema) {
-    await this.authService.organizationSignUp(body)
   }
 }

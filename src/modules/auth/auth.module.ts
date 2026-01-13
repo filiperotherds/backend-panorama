@@ -30,4 +30,4 @@ import { AuthController } from './auth.controller'
   providers: [AuthService, JwtStrategy, PrismaService],
   exports: [AuthService],
 })
-export class AuthModule {}
+export class AuthModule { }

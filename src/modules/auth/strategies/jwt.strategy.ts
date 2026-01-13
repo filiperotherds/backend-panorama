@@ -7,13 +7,6 @@ import z from 'zod'
 
 const tokenPayloadSchema = z.object({
   sub: z.string().uuid(),
-  typ: z.enum(['USER', 'ORG_CLIENT', 'ORG_PRO']),
-  ctx: z.object({
-    orgId: z.string().nullable(),
-    memberId: z.string().nullable(),
-    profileId: z.string().nullable(),
-    role: z.string().optional(),
-  }),
 })
 
 export type TokenPayload = z.infer<typeof tokenPayloadSchema>

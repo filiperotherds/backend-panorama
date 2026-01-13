@@ -10,20 +10,13 @@ export class GetOrganizationController {
   constructor(private organizationsService: OrganizationsService) {}
 
   @Get()
-  async getOrganization(@CurrentUser() { ctx }: TokenPayload) {
-    if (!ctx.orgId) {
+  async getOrganization(@CurrentUser() { sub }: TokenPayload) {
+    if (!sub) {
       throw new BadRequestException('Missing params')
     }
 
-    const orgId = ctx.orgId
-
-    const organization =
-      await this.organizationsService.getOrganizationById(orgId)
-
-    const membership = {
-      organization,
-      role: ctx.role!,
-    }
+    const membership =
+      await this.organizationsService.getOrganizationByUserId(sub)
 
     return membership
   }

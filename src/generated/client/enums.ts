@@ -16,16 +16,6 @@ export const TokenType = {
 export type TokenType = (typeof TokenType)[keyof typeof TokenType]
 
 
-export const ProjectStatus = {
-  PENDING: 'PENDING',
-  IN_PROGRESS: 'IN_PROGRESS',
-  COMPLETED: 'COMPLETED',
-  CANCELLED: 'CANCELLED'
-} as const
-
-export type ProjectStatus = (typeof ProjectStatus)[keyof typeof ProjectStatus]
-
-
 export const EstimateStatus = {
   PENDING: 'PENDING',
   APPROVED: 'APPROVED',
@@ -41,19 +31,3 @@ export const Role = {
 } as const
 
 export type Role = (typeof Role)[keyof typeof Role]
-
-
-export const OrgType = {
-  PROVIDER: 'PROVIDER',
-  CLIENT: 'CLIENT'
-} as const
-
-export type OrgType = (typeof OrgType)[keyof typeof OrgType]
-
-
-export const AccountType = {
-  INDIVIDUAL: 'INDIVIDUAL',
-  ORGANIZATION: 'ORGANIZATION'
-} as const
-
-export type AccountType = (typeof AccountType)[keyof typeof AccountType]

@@ -3,18 +3,24 @@ import { Injectable } from '@nestjs/common'
 
 @Injectable()
 export class OrganizationsService {
-  constructor(private prisma: PrismaService) {}
+  constructor(private prisma: PrismaService) { }
 
-  async getOrganizationById(id: string) {
-    const organization = await this.prisma.organization.findUnique({
-      select: {
-        name: true,
-        avatarUrl: true,
-        type: true,
+  async getOrganizationByUserId(sub: string) {
+    const membership = await this.prisma.member.findFirst({
+      where: {
+        userId: sub,
       },
-      where: { id },
+      select: {
+        organization: {
+          select: {
+            avatarUrl: true,
+            name: true,
+          },
+        },
+        role: true,
+      },
     })
 
-    return organization
+    return membership
   }
 }

@@ -45,7 +45,7 @@ export type EstimateMinAggregateOutputType = {
   createdAt: Date | null
   validity: Date | null
   projectId: string | null
-  providerProfileId: string | null
+  organizationId: string | null
 }
 
 export type EstimateMaxAggregateOutputType = {
@@ -57,7 +57,7 @@ export type EstimateMaxAggregateOutputType = {
   createdAt: Date | null
   validity: Date | null
   projectId: string | null
-  providerProfileId: string | null
+  organizationId: string | null
 }
 
 export type EstimateCountAggregateOutputType = {
@@ -69,7 +69,7 @@ export type EstimateCountAggregateOutputType = {
   createdAt: number
   validity: number
   projectId: number
-  providerProfileId: number
+  organizationId: number
   _all: number
 }
 
@@ -93,7 +93,7 @@ export type EstimateMinAggregateInputType = {
   createdAt?: true
   validity?: true
   projectId?: true
-  providerProfileId?: true
+  organizationId?: true
 }
 
 export type EstimateMaxAggregateInputType = {
@@ -105,7 +105,7 @@ export type EstimateMaxAggregateInputType = {
   createdAt?: true
   validity?: true
   projectId?: true
-  providerProfileId?: true
+  organizationId?: true
 }
 
 export type EstimateCountAggregateInputType = {
@@ -117,7 +117,7 @@ export type EstimateCountAggregateInputType = {
   createdAt?: true
   validity?: true
   projectId?: true
-  providerProfileId?: true
+  organizationId?: true
   _all?: true
 }
 
@@ -216,7 +216,7 @@ export type EstimateGroupByOutputType = {
   createdAt: Date
   validity: Date | null
   projectId: string
-  providerProfileId: string | null
+  organizationId: string
   _count: EstimateCountAggregateOutputType | null
   _avg: EstimateAvgAggregateOutputType | null
   _sum: EstimateSumAggregateOutputType | null
@@ -251,9 +251,9 @@ export type EstimateWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Estimate"> | Date | string
   validity?: Prisma.DateTimeNullableFilter<"Estimate"> | Date | string | null
   projectId?: Prisma.StringFilter<"Estimate"> | string
-  providerProfileId?: Prisma.StringNullableFilter<"Estimate"> | string | null
+  organizationId?: Prisma.StringFilter<"Estimate"> | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
-  providerProfile?: Prisma.XOR<Prisma.ProviderProfileNullableScalarRelationFilter, Prisma.ProviderProfileWhereInput> | null
+  organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
 }
 
 export type EstimateOrderByWithRelationInput = {
@@ -265,13 +265,14 @@ export type EstimateOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   validity?: Prisma.SortOrderInput | Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  providerProfileId?: Prisma.SortOrderInput | Prisma.SortOrder
+  organizationId?: Prisma.SortOrder
   project?: Prisma.ProjectOrderByWithRelationInput
-  providerProfile?: Prisma.ProviderProfileOrderByWithRelationInput
+  organization?: Prisma.OrganizationOrderByWithRelationInput
 }
 
 export type EstimateWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  projectId?: string
   AND?: Prisma.EstimateWhereInput | Prisma.EstimateWhereInput[]
   OR?: Prisma.EstimateWhereInput[]
   NOT?: Prisma.EstimateWhereInput | Prisma.EstimateWhereInput[]
@@ -281,11 +282,10 @@ export type EstimateWhereUniqueInput = Prisma.AtLeast<{
   status?: Prisma.EnumEstimateStatusFilter<"Estimate"> | $Enums.EstimateStatus
   createdAt?: Prisma.DateTimeFilter<"Estimate"> | Date | string
   validity?: Prisma.DateTimeNullableFilter<"Estimate"> | Date | string | null
-  projectId?: Prisma.StringFilter<"Estimate"> | string
-  providerProfileId?: Prisma.StringNullableFilter<"Estimate"> | string | null
+  organizationId?: Prisma.StringFilter<"Estimate"> | string
   project?: Prisma.XOR<Prisma.ProjectScalarRelationFilter, Prisma.ProjectWhereInput>
-  providerProfile?: Prisma.XOR<Prisma.ProviderProfileNullableScalarRelationFilter, Prisma.ProviderProfileWhereInput> | null
-}, "id">
+  organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+}, "id" | "projectId">
 
 export type EstimateOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -296,7 +296,7 @@ export type EstimateOrderByWithAggregationInput = {
   createdAt?: Prisma.SortOrder
   validity?: Prisma.SortOrderInput | Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  providerProfileId?: Prisma.SortOrderInput | Prisma.SortOrder
+  organizationId?: Prisma.SortOrder
   _count?: Prisma.EstimateCountOrderByAggregateInput
   _avg?: Prisma.EstimateAvgOrderByAggregateInput
   _max?: Prisma.EstimateMaxOrderByAggregateInput
@@ -316,7 +316,7 @@ export type EstimateScalarWhereWithAggregatesInput = {
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Estimate"> | Date | string
   validity?: Prisma.DateTimeNullableWithAggregatesFilter<"Estimate"> | Date | string | null
   projectId?: Prisma.StringWithAggregatesFilter<"Estimate"> | string
-  providerProfileId?: Prisma.StringNullableWithAggregatesFilter<"Estimate"> | string | null
+  organizationId?: Prisma.StringWithAggregatesFilter<"Estimate"> | string
 }
 
 export type EstimateCreateInput = {
@@ -328,7 +328,7 @@ export type EstimateCreateInput = {
   createdAt?: Date | string
   validity?: Date | string | null
   project: Prisma.ProjectCreateNestedOneWithoutEstimateInput
-  providerProfile?: Prisma.ProviderProfileCreateNestedOneWithoutEstimatesInput
+  organization: Prisma.OrganizationCreateNestedOneWithoutEstimatesInput
 }
 
 export type EstimateUncheckedCreateInput = {
@@ -340,7 +340,7 @@ export type EstimateUncheckedCreateInput = {
   createdAt?: Date | string
   validity?: Date | string | null
   projectId: string
-  providerProfileId?: string | null
+  organizationId: string
 }
 
 export type EstimateUpdateInput = {
@@ -352,7 +352,7 @@ export type EstimateUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   validity?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   project?: Prisma.ProjectUpdateOneRequiredWithoutEstimateNestedInput
-  providerProfile?: Prisma.ProviderProfileUpdateOneWithoutEstimatesNestedInput
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutEstimatesNestedInput
 }
 
 export type EstimateUncheckedUpdateInput = {
@@ -364,7 +364,7 @@ export type EstimateUncheckedUpdateInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   validity?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
-  providerProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type EstimateCreateManyInput = {
@@ -376,7 +376,7 @@ export type EstimateCreateManyInput = {
   createdAt?: Date | string
   validity?: Date | string | null
   projectId: string
-  providerProfileId?: string | null
+  organizationId: string
 }
 
 export type EstimateUpdateManyMutationInput = {
@@ -398,7 +398,7 @@ export type EstimateUncheckedUpdateManyInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   validity?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   projectId?: Prisma.StringFieldUpdateOperationsInput | string
-  providerProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 export type EstimateListRelationFilter = {
@@ -411,6 +411,11 @@ export type EstimateOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
+export type EstimateNullableScalarRelationFilter = {
+  is?: Prisma.EstimateWhereInput | null
+  isNot?: Prisma.EstimateWhereInput | null
+}
+
 export type EstimateCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   description?: Prisma.SortOrder
@@ -420,7 +425,7 @@ export type EstimateCountOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   validity?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  providerProfileId?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrder
 }
 
 export type EstimateAvgOrderByAggregateInput = {
@@ -437,7 +442,7 @@ export type EstimateMaxOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   validity?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  providerProfileId?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrder
 }
 
 export type EstimateMinOrderByAggregateInput = {
@@ -449,7 +454,7 @@ export type EstimateMinOrderByAggregateInput = {
   createdAt?: Prisma.SortOrder
   validity?: Prisma.SortOrder
   projectId?: Prisma.SortOrder
-  providerProfileId?: Prisma.SortOrder
+  organizationId?: Prisma.SortOrder
 }
 
 export type EstimateSumOrderByAggregateInput = {
@@ -457,88 +462,78 @@ export type EstimateSumOrderByAggregateInput = {
   value?: Prisma.SortOrder
 }
 
-export type EstimateCreateNestedManyWithoutProviderProfileInput = {
-  create?: Prisma.XOR<Prisma.EstimateCreateWithoutProviderProfileInput, Prisma.EstimateUncheckedCreateWithoutProviderProfileInput> | Prisma.EstimateCreateWithoutProviderProfileInput[] | Prisma.EstimateUncheckedCreateWithoutProviderProfileInput[]
-  connectOrCreate?: Prisma.EstimateCreateOrConnectWithoutProviderProfileInput | Prisma.EstimateCreateOrConnectWithoutProviderProfileInput[]
-  createMany?: Prisma.EstimateCreateManyProviderProfileInputEnvelope
+export type EstimateCreateNestedManyWithoutOrganizationInput = {
+  create?: Prisma.XOR<Prisma.EstimateCreateWithoutOrganizationInput, Prisma.EstimateUncheckedCreateWithoutOrganizationInput> | Prisma.EstimateCreateWithoutOrganizationInput[] | Prisma.EstimateUncheckedCreateWithoutOrganizationInput[]
+  connectOrCreate?: Prisma.EstimateCreateOrConnectWithoutOrganizationInput | Prisma.EstimateCreateOrConnectWithoutOrganizationInput[]
+  createMany?: Prisma.EstimateCreateManyOrganizationInputEnvelope
   connect?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
 }
 
-export type EstimateUncheckedCreateNestedManyWithoutProviderProfileInput = {
-  create?: Prisma.XOR<Prisma.EstimateCreateWithoutProviderProfileInput, Prisma.EstimateUncheckedCreateWithoutProviderProfileInput> | Prisma.EstimateCreateWithoutProviderProfileInput[] | Prisma.EstimateUncheckedCreateWithoutProviderProfileInput[]
-  connectOrCreate?: Prisma.EstimateCreateOrConnectWithoutProviderProfileInput | Prisma.EstimateCreateOrConnectWithoutProviderProfileInput[]
-  createMany?: Prisma.EstimateCreateManyProviderProfileInputEnvelope
+export type EstimateUncheckedCreateNestedManyWithoutOrganizationInput = {
+  create?: Prisma.XOR<Prisma.EstimateCreateWithoutOrganizationInput, Prisma.EstimateUncheckedCreateWithoutOrganizationInput> | Prisma.EstimateCreateWithoutOrganizationInput[] | Prisma.EstimateUncheckedCreateWithoutOrganizationInput[]
+  connectOrCreate?: Prisma.EstimateCreateOrConnectWithoutOrganizationInput | Prisma.EstimateCreateOrConnectWithoutOrganizationInput[]
+  createMany?: Prisma.EstimateCreateManyOrganizationInputEnvelope
   connect?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
 }
 
-export type EstimateUpdateManyWithoutProviderProfileNestedInput = {
-  create?: Prisma.XOR<Prisma.EstimateCreateWithoutProviderProfileInput, Prisma.EstimateUncheckedCreateWithoutProviderProfileInput> | Prisma.EstimateCreateWithoutProviderProfileInput[] | Prisma.EstimateUncheckedCreateWithoutProviderProfileInput[]
-  connectOrCreate?: Prisma.EstimateCreateOrConnectWithoutProviderProfileInput | Prisma.EstimateCreateOrConnectWithoutProviderProfileInput[]
-  upsert?: Prisma.EstimateUpsertWithWhereUniqueWithoutProviderProfileInput | Prisma.EstimateUpsertWithWhereUniqueWithoutProviderProfileInput[]
-  createMany?: Prisma.EstimateCreateManyProviderProfileInputEnvelope
+export type EstimateUpdateManyWithoutOrganizationNestedInput = {
+  create?: Prisma.XOR<Prisma.EstimateCreateWithoutOrganizationInput, Prisma.EstimateUncheckedCreateWithoutOrganizationInput> | Prisma.EstimateCreateWithoutOrganizationInput[] | Prisma.EstimateUncheckedCreateWithoutOrganizationInput[]
+  connectOrCreate?: Prisma.EstimateCreateOrConnectWithoutOrganizationInput | Prisma.EstimateCreateOrConnectWithoutOrganizationInput[]
+  upsert?: Prisma.EstimateUpsertWithWhereUniqueWithoutOrganizationInput | Prisma.EstimateUpsertWithWhereUniqueWithoutOrganizationInput[]
+  createMany?: Prisma.EstimateCreateManyOrganizationInputEnvelope
   set?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
   disconnect?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
   delete?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
   connect?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
-  update?: Prisma.EstimateUpdateWithWhereUniqueWithoutProviderProfileInput | Prisma.EstimateUpdateWithWhereUniqueWithoutProviderProfileInput[]
-  updateMany?: Prisma.EstimateUpdateManyWithWhereWithoutProviderProfileInput | Prisma.EstimateUpdateManyWithWhereWithoutProviderProfileInput[]
+  update?: Prisma.EstimateUpdateWithWhereUniqueWithoutOrganizationInput | Prisma.EstimateUpdateWithWhereUniqueWithoutOrganizationInput[]
+  updateMany?: Prisma.EstimateUpdateManyWithWhereWithoutOrganizationInput | Prisma.EstimateUpdateManyWithWhereWithoutOrganizationInput[]
   deleteMany?: Prisma.EstimateScalarWhereInput | Prisma.EstimateScalarWhereInput[]
 }
 
-export type EstimateUncheckedUpdateManyWithoutProviderProfileNestedInput = {
-  create?: Prisma.XOR<Prisma.EstimateCreateWithoutProviderProfileInput, Prisma.EstimateUncheckedCreateWithoutProviderProfileInput> | Prisma.EstimateCreateWithoutProviderProfileInput[] | Prisma.EstimateUncheckedCreateWithoutProviderProfileInput[]
-  connectOrCreate?: Prisma.EstimateCreateOrConnectWithoutProviderProfileInput | Prisma.EstimateCreateOrConnectWithoutProviderProfileInput[]
-  upsert?: Prisma.EstimateUpsertWithWhereUniqueWithoutProviderProfileInput | Prisma.EstimateUpsertWithWhereUniqueWithoutProviderProfileInput[]
-  createMany?: Prisma.EstimateCreateManyProviderProfileInputEnvelope
+export type EstimateUncheckedUpdateManyWithoutOrganizationNestedInput = {
+  create?: Prisma.XOR<Prisma.EstimateCreateWithoutOrganizationInput, Prisma.EstimateUncheckedCreateWithoutOrganizationInput> | Prisma.EstimateCreateWithoutOrganizationInput[] | Prisma.EstimateUncheckedCreateWithoutOrganizationInput[]
+  connectOrCreate?: Prisma.EstimateCreateOrConnectWithoutOrganizationInput | Prisma.EstimateCreateOrConnectWithoutOrganizationInput[]
+  upsert?: Prisma.EstimateUpsertWithWhereUniqueWithoutOrganizationInput | Prisma.EstimateUpsertWithWhereUniqueWithoutOrganizationInput[]
+  createMany?: Prisma.EstimateCreateManyOrganizationInputEnvelope
   set?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
   disconnect?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
   delete?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
   connect?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
-  update?: Prisma.EstimateUpdateWithWhereUniqueWithoutProviderProfileInput | Prisma.EstimateUpdateWithWhereUniqueWithoutProviderProfileInput[]
-  updateMany?: Prisma.EstimateUpdateManyWithWhereWithoutProviderProfileInput | Prisma.EstimateUpdateManyWithWhereWithoutProviderProfileInput[]
+  update?: Prisma.EstimateUpdateWithWhereUniqueWithoutOrganizationInput | Prisma.EstimateUpdateWithWhereUniqueWithoutOrganizationInput[]
+  updateMany?: Prisma.EstimateUpdateManyWithWhereWithoutOrganizationInput | Prisma.EstimateUpdateManyWithWhereWithoutOrganizationInput[]
   deleteMany?: Prisma.EstimateScalarWhereInput | Prisma.EstimateScalarWhereInput[]
 }
 
-export type EstimateCreateNestedManyWithoutProjectInput = {
-  create?: Prisma.XOR<Prisma.EstimateCreateWithoutProjectInput, Prisma.EstimateUncheckedCreateWithoutProjectInput> | Prisma.EstimateCreateWithoutProjectInput[] | Prisma.EstimateUncheckedCreateWithoutProjectInput[]
-  connectOrCreate?: Prisma.EstimateCreateOrConnectWithoutProjectInput | Prisma.EstimateCreateOrConnectWithoutProjectInput[]
-  createMany?: Prisma.EstimateCreateManyProjectInputEnvelope
-  connect?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
+export type EstimateCreateNestedOneWithoutProjectInput = {
+  create?: Prisma.XOR<Prisma.EstimateCreateWithoutProjectInput, Prisma.EstimateUncheckedCreateWithoutProjectInput>
+  connectOrCreate?: Prisma.EstimateCreateOrConnectWithoutProjectInput
+  connect?: Prisma.EstimateWhereUniqueInput
 }
 
-export type EstimateUncheckedCreateNestedManyWithoutProjectInput = {
-  create?: Prisma.XOR<Prisma.EstimateCreateWithoutProjectInput, Prisma.EstimateUncheckedCreateWithoutProjectInput> | Prisma.EstimateCreateWithoutProjectInput[] | Prisma.EstimateUncheckedCreateWithoutProjectInput[]
-  connectOrCreate?: Prisma.EstimateCreateOrConnectWithoutProjectInput | Prisma.EstimateCreateOrConnectWithoutProjectInput[]
-  createMany?: Prisma.EstimateCreateManyProjectInputEnvelope
-  connect?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
+export type EstimateUncheckedCreateNestedOneWithoutProjectInput = {
+  create?: Prisma.XOR<Prisma.EstimateCreateWithoutProjectInput, Prisma.EstimateUncheckedCreateWithoutProjectInput>
+  connectOrCreate?: Prisma.EstimateCreateOrConnectWithoutProjectInput
+  connect?: Prisma.EstimateWhereUniqueInput
 }
 
-export type EstimateUpdateManyWithoutProjectNestedInput = {
-  create?: Prisma.XOR<Prisma.EstimateCreateWithoutProjectInput, Prisma.EstimateUncheckedCreateWithoutProjectInput> | Prisma.EstimateCreateWithoutProjectInput[] | Prisma.EstimateUncheckedCreateWithoutProjectInput[]
-  connectOrCreate?: Prisma.EstimateCreateOrConnectWithoutProjectInput | Prisma.EstimateCreateOrConnectWithoutProjectInput[]
-  upsert?: Prisma.EstimateUpsertWithWhereUniqueWithoutProjectInput | Prisma.EstimateUpsertWithWhereUniqueWithoutProjectInput[]
-  createMany?: Prisma.EstimateCreateManyProjectInputEnvelope
-  set?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
-  disconnect?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
-  delete?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
-  connect?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
-  update?: Prisma.EstimateUpdateWithWhereUniqueWithoutProjectInput | Prisma.EstimateUpdateWithWhereUniqueWithoutProjectInput[]
-  updateMany?: Prisma.EstimateUpdateManyWithWhereWithoutProjectInput | Prisma.EstimateUpdateManyWithWhereWithoutProjectInput[]
-  deleteMany?: Prisma.EstimateScalarWhereInput | Prisma.EstimateScalarWhereInput[]
+export type EstimateUpdateOneWithoutProjectNestedInput = {
+  create?: Prisma.XOR<Prisma.EstimateCreateWithoutProjectInput, Prisma.EstimateUncheckedCreateWithoutProjectInput>
+  connectOrCreate?: Prisma.EstimateCreateOrConnectWithoutProjectInput
+  upsert?: Prisma.EstimateUpsertWithoutProjectInput
+  disconnect?: Prisma.EstimateWhereInput | boolean
+  delete?: Prisma.EstimateWhereInput | boolean
+  connect?: Prisma.EstimateWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EstimateUpdateToOneWithWhereWithoutProjectInput, Prisma.EstimateUpdateWithoutProjectInput>, Prisma.EstimateUncheckedUpdateWithoutProjectInput>
 }
 
-export type EstimateUncheckedUpdateManyWithoutProjectNestedInput = {
-  create?: Prisma.XOR<Prisma.EstimateCreateWithoutProjectInput, Prisma.EstimateUncheckedCreateWithoutProjectInput> | Prisma.EstimateCreateWithoutProjectInput[] | Prisma.EstimateUncheckedCreateWithoutProjectInput[]
-  connectOrCreate?: Prisma.EstimateCreateOrConnectWithoutProjectInput | Prisma.EstimateCreateOrConnectWithoutProjectInput[]
-  upsert?: Prisma.EstimateUpsertWithWhereUniqueWithoutProjectInput | Prisma.EstimateUpsertWithWhereUniqueWithoutProjectInput[]
-  createMany?: Prisma.EstimateCreateManyProjectInputEnvelope
-  set?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
-  disconnect?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
-  delete?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
-  connect?: Prisma.EstimateWhereUniqueInput | Prisma.EstimateWhereUniqueInput[]
-  update?: Prisma.EstimateUpdateWithWhereUniqueWithoutProjectInput | Prisma.EstimateUpdateWithWhereUniqueWithoutProjectInput[]
-  updateMany?: Prisma.EstimateUpdateManyWithWhereWithoutProjectInput | Prisma.EstimateUpdateManyWithWhereWithoutProjectInput[]
-  deleteMany?: Prisma.EstimateScalarWhereInput | Prisma.EstimateScalarWhereInput[]
+export type EstimateUncheckedUpdateOneWithoutProjectNestedInput = {
+  create?: Prisma.XOR<Prisma.EstimateCreateWithoutProjectInput, Prisma.EstimateUncheckedCreateWithoutProjectInput>
+  connectOrCreate?: Prisma.EstimateCreateOrConnectWithoutProjectInput
+  upsert?: Prisma.EstimateUpsertWithoutProjectInput
+  disconnect?: Prisma.EstimateWhereInput | boolean
+  delete?: Prisma.EstimateWhereInput | boolean
+  connect?: Prisma.EstimateWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.EstimateUpdateToOneWithWhereWithoutProjectInput, Prisma.EstimateUpdateWithoutProjectInput>, Prisma.EstimateUncheckedUpdateWithoutProjectInput>
 }
 
 export type IntFieldUpdateOperationsInput = {
@@ -553,11 +548,7 @@ export type EnumEstimateStatusFieldUpdateOperationsInput = {
   set?: $Enums.EstimateStatus
 }
 
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
-export type EstimateCreateWithoutProviderProfileInput = {
+export type EstimateCreateWithoutOrganizationInput = {
   id?: string
   description?: string | null
   duration: number
@@ -568,7 +559,7 @@ export type EstimateCreateWithoutProviderProfileInput = {
   project: Prisma.ProjectCreateNestedOneWithoutEstimateInput
 }
 
-export type EstimateUncheckedCreateWithoutProviderProfileInput = {
+export type EstimateUncheckedCreateWithoutOrganizationInput = {
   id?: string
   description?: string | null
   duration: number
@@ -579,30 +570,30 @@ export type EstimateUncheckedCreateWithoutProviderProfileInput = {
   projectId: string
 }
 
-export type EstimateCreateOrConnectWithoutProviderProfileInput = {
+export type EstimateCreateOrConnectWithoutOrganizationInput = {
   where: Prisma.EstimateWhereUniqueInput
-  create: Prisma.XOR<Prisma.EstimateCreateWithoutProviderProfileInput, Prisma.EstimateUncheckedCreateWithoutProviderProfileInput>
+  create: Prisma.XOR<Prisma.EstimateCreateWithoutOrganizationInput, Prisma.EstimateUncheckedCreateWithoutOrganizationInput>
 }
 
-export type EstimateCreateManyProviderProfileInputEnvelope = {
-  data: Prisma.EstimateCreateManyProviderProfileInput | Prisma.EstimateCreateManyProviderProfileInput[]
+export type EstimateCreateManyOrganizationInputEnvelope = {
+  data: Prisma.EstimateCreateManyOrganizationInput | Prisma.EstimateCreateManyOrganizationInput[]
   skipDuplicates?: boolean
 }
 
-export type EstimateUpsertWithWhereUniqueWithoutProviderProfileInput = {
+export type EstimateUpsertWithWhereUniqueWithoutOrganizationInput = {
   where: Prisma.EstimateWhereUniqueInput
-  update: Prisma.XOR<Prisma.EstimateUpdateWithoutProviderProfileInput, Prisma.EstimateUncheckedUpdateWithoutProviderProfileInput>
-  create: Prisma.XOR<Prisma.EstimateCreateWithoutProviderProfileInput, Prisma.EstimateUncheckedCreateWithoutProviderProfileInput>
+  update: Prisma.XOR<Prisma.EstimateUpdateWithoutOrganizationInput, Prisma.EstimateUncheckedUpdateWithoutOrganizationInput>
+  create: Prisma.XOR<Prisma.EstimateCreateWithoutOrganizationInput, Prisma.EstimateUncheckedCreateWithoutOrganizationInput>
 }
 
-export type EstimateUpdateWithWhereUniqueWithoutProviderProfileInput = {
+export type EstimateUpdateWithWhereUniqueWithoutOrganizationInput = {
   where: Prisma.EstimateWhereUniqueInput
-  data: Prisma.XOR<Prisma.EstimateUpdateWithoutProviderProfileInput, Prisma.EstimateUncheckedUpdateWithoutProviderProfileInput>
+  data: Prisma.XOR<Prisma.EstimateUpdateWithoutOrganizationInput, Prisma.EstimateUncheckedUpdateWithoutOrganizationInput>
 }
 
-export type EstimateUpdateManyWithWhereWithoutProviderProfileInput = {
+export type EstimateUpdateManyWithWhereWithoutOrganizationInput = {
   where: Prisma.EstimateScalarWhereInput
-  data: Prisma.XOR<Prisma.EstimateUpdateManyMutationInput, Prisma.EstimateUncheckedUpdateManyWithoutProviderProfileInput>
+  data: Prisma.XOR<Prisma.EstimateUpdateManyMutationInput, Prisma.EstimateUncheckedUpdateManyWithoutOrganizationInput>
 }
 
 export type EstimateScalarWhereInput = {
@@ -617,7 +608,7 @@ export type EstimateScalarWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"Estimate"> | Date | string
   validity?: Prisma.DateTimeNullableFilter<"Estimate"> | Date | string | null
   projectId?: Prisma.StringFilter<"Estimate"> | string
-  providerProfileId?: Prisma.StringNullableFilter<"Estimate"> | string | null
+  organizationId?: Prisma.StringFilter<"Estimate"> | string
 }
 
 export type EstimateCreateWithoutProjectInput = {
@@ -628,7 +619,7 @@ export type EstimateCreateWithoutProjectInput = {
   status?: $Enums.EstimateStatus
   createdAt?: Date | string
   validity?: Date | string | null
-  providerProfile?: Prisma.ProviderProfileCreateNestedOneWithoutEstimatesInput
+  organization: Prisma.OrganizationCreateNestedOneWithoutEstimatesInput
 }
 
 export type EstimateUncheckedCreateWithoutProjectInput = {
@@ -639,7 +630,7 @@ export type EstimateUncheckedCreateWithoutProjectInput = {
   status?: $Enums.EstimateStatus
   createdAt?: Date | string
   validity?: Date | string | null
-  providerProfileId?: string | null
+  organizationId: string
 }
 
 export type EstimateCreateOrConnectWithoutProjectInput = {
@@ -647,80 +638,15 @@ export type EstimateCreateOrConnectWithoutProjectInput = {
   create: Prisma.XOR<Prisma.EstimateCreateWithoutProjectInput, Prisma.EstimateUncheckedCreateWithoutProjectInput>
 }
 
-export type EstimateCreateManyProjectInputEnvelope = {
-  data: Prisma.EstimateCreateManyProjectInput | Prisma.EstimateCreateManyProjectInput[]
-  skipDuplicates?: boolean
-}
-
-export type EstimateUpsertWithWhereUniqueWithoutProjectInput = {
-  where: Prisma.EstimateWhereUniqueInput
+export type EstimateUpsertWithoutProjectInput = {
   update: Prisma.XOR<Prisma.EstimateUpdateWithoutProjectInput, Prisma.EstimateUncheckedUpdateWithoutProjectInput>
   create: Prisma.XOR<Prisma.EstimateCreateWithoutProjectInput, Prisma.EstimateUncheckedCreateWithoutProjectInput>
+  where?: Prisma.EstimateWhereInput
 }
 
-export type EstimateUpdateWithWhereUniqueWithoutProjectInput = {
-  where: Prisma.EstimateWhereUniqueInput
+export type EstimateUpdateToOneWithWhereWithoutProjectInput = {
+  where?: Prisma.EstimateWhereInput
   data: Prisma.XOR<Prisma.EstimateUpdateWithoutProjectInput, Prisma.EstimateUncheckedUpdateWithoutProjectInput>
-}
-
-export type EstimateUpdateManyWithWhereWithoutProjectInput = {
-  where: Prisma.EstimateScalarWhereInput
-  data: Prisma.XOR<Prisma.EstimateUpdateManyMutationInput, Prisma.EstimateUncheckedUpdateManyWithoutProjectInput>
-}
-
-export type EstimateCreateManyProviderProfileInput = {
-  id?: string
-  description?: string | null
-  duration: number
-  value: number
-  status?: $Enums.EstimateStatus
-  createdAt?: Date | string
-  validity?: Date | string | null
-  projectId: string
-}
-
-export type EstimateUpdateWithoutProviderProfileInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  duration?: Prisma.IntFieldUpdateOperationsInput | number
-  value?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumEstimateStatusFieldUpdateOperationsInput | $Enums.EstimateStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  validity?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  project?: Prisma.ProjectUpdateOneRequiredWithoutEstimateNestedInput
-}
-
-export type EstimateUncheckedUpdateWithoutProviderProfileInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  duration?: Prisma.IntFieldUpdateOperationsInput | number
-  value?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumEstimateStatusFieldUpdateOperationsInput | $Enums.EstimateStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  validity?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  projectId?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-export type EstimateUncheckedUpdateManyWithoutProviderProfileInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  duration?: Prisma.IntFieldUpdateOperationsInput | number
-  value?: Prisma.IntFieldUpdateOperationsInput | number
-  status?: Prisma.EnumEstimateStatusFieldUpdateOperationsInput | $Enums.EstimateStatus
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  validity?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  projectId?: Prisma.StringFieldUpdateOperationsInput | string
-}
-
-export type EstimateCreateManyProjectInput = {
-  id?: string
-  description?: string | null
-  duration: number
-  value: number
-  status?: $Enums.EstimateStatus
-  createdAt?: Date | string
-  validity?: Date | string | null
-  providerProfileId?: string | null
 }
 
 export type EstimateUpdateWithoutProjectInput = {
@@ -731,7 +657,7 @@ export type EstimateUpdateWithoutProjectInput = {
   status?: Prisma.EnumEstimateStatusFieldUpdateOperationsInput | $Enums.EstimateStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   validity?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  providerProfile?: Prisma.ProviderProfileUpdateOneWithoutEstimatesNestedInput
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutEstimatesNestedInput
 }
 
 export type EstimateUncheckedUpdateWithoutProjectInput = {
@@ -742,10 +668,21 @@ export type EstimateUncheckedUpdateWithoutProjectInput = {
   status?: Prisma.EnumEstimateStatusFieldUpdateOperationsInput | $Enums.EstimateStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   validity?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  providerProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
-export type EstimateUncheckedUpdateManyWithoutProjectInput = {
+export type EstimateCreateManyOrganizationInput = {
+  id?: string
+  description?: string | null
+  duration: number
+  value: number
+  status?: $Enums.EstimateStatus
+  createdAt?: Date | string
+  validity?: Date | string | null
+  projectId: string
+}
+
+export type EstimateUpdateWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   duration?: Prisma.IntFieldUpdateOperationsInput | number
@@ -753,7 +690,29 @@ export type EstimateUncheckedUpdateManyWithoutProjectInput = {
   status?: Prisma.EnumEstimateStatusFieldUpdateOperationsInput | $Enums.EstimateStatus
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   validity?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  providerProfileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  project?: Prisma.ProjectUpdateOneRequiredWithoutEstimateNestedInput
+}
+
+export type EstimateUncheckedUpdateWithoutOrganizationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
+  value?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumEstimateStatusFieldUpdateOperationsInput | $Enums.EstimateStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  validity?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
+}
+
+export type EstimateUncheckedUpdateManyWithoutOrganizationInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  duration?: Prisma.IntFieldUpdateOperationsInput | number
+  value?: Prisma.IntFieldUpdateOperationsInput | number
+  status?: Prisma.EnumEstimateStatusFieldUpdateOperationsInput | $Enums.EstimateStatus
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  validity?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  projectId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
 
@@ -767,9 +726,9 @@ export type EstimateSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs
   createdAt?: boolean
   validity?: boolean
   projectId?: boolean
-  providerProfileId?: boolean
+  organizationId?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  providerProfile?: boolean | Prisma.Estimate$providerProfileArgs<ExtArgs>
+  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["estimate"]>
 
 export type EstimateSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -781,9 +740,9 @@ export type EstimateSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exte
   createdAt?: boolean
   validity?: boolean
   projectId?: boolean
-  providerProfileId?: boolean
+  organizationId?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  providerProfile?: boolean | Prisma.Estimate$providerProfileArgs<ExtArgs>
+  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["estimate"]>
 
 export type EstimateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -795,9 +754,9 @@ export type EstimateSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exte
   createdAt?: boolean
   validity?: boolean
   projectId?: boolean
-  providerProfileId?: boolean
+  organizationId?: boolean
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  providerProfile?: boolean | Prisma.Estimate$providerProfileArgs<ExtArgs>
+  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["estimate"]>
 
 export type EstimateSelectScalar = {
@@ -809,28 +768,28 @@ export type EstimateSelectScalar = {
   createdAt?: boolean
   validity?: boolean
   projectId?: boolean
-  providerProfileId?: boolean
+  organizationId?: boolean
 }
 
-export type EstimateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "description" | "duration" | "value" | "status" | "createdAt" | "validity" | "projectId" | "providerProfileId", ExtArgs["result"]["estimate"]>
+export type EstimateOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "description" | "duration" | "value" | "status" | "createdAt" | "validity" | "projectId" | "organizationId", ExtArgs["result"]["estimate"]>
 export type EstimateInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  providerProfile?: boolean | Prisma.Estimate$providerProfileArgs<ExtArgs>
+  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }
 export type EstimateIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  providerProfile?: boolean | Prisma.Estimate$providerProfileArgs<ExtArgs>
+  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }
 export type EstimateIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   project?: boolean | Prisma.ProjectDefaultArgs<ExtArgs>
-  providerProfile?: boolean | Prisma.Estimate$providerProfileArgs<ExtArgs>
+  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }
 
 export type $EstimatePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Estimate"
   objects: {
     project: Prisma.$ProjectPayload<ExtArgs>
-    providerProfile: Prisma.$ProviderProfilePayload<ExtArgs> | null
+    organization: Prisma.$OrganizationPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -841,7 +800,7 @@ export type $EstimatePayload<ExtArgs extends runtime.Types.Extensions.InternalAr
     createdAt: Date
     validity: Date | null
     projectId: string
-    providerProfileId: string | null
+    organizationId: string
   }, ExtArgs["result"]["estimate"]>
   composites: {}
 }
@@ -1237,7 +1196,7 @@ readonly fields: EstimateFieldRefs;
 export interface Prisma__EstimateClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   project<T extends Prisma.ProjectDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ProjectDefaultArgs<ExtArgs>>): Prisma.Prisma__ProjectClient<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  providerProfile<T extends Prisma.Estimate$providerProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Estimate$providerProfileArgs<ExtArgs>>): Prisma.Prisma__ProviderProfileClient<runtime.Types.Result.GetResult<Prisma.$ProviderProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  organization<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1275,7 +1234,7 @@ export interface EstimateFieldRefs {
   readonly createdAt: Prisma.FieldRef<"Estimate", 'DateTime'>
   readonly validity: Prisma.FieldRef<"Estimate", 'DateTime'>
   readonly projectId: Prisma.FieldRef<"Estimate", 'String'>
-  readonly providerProfileId: Prisma.FieldRef<"Estimate", 'String'>
+  readonly organizationId: Prisma.FieldRef<"Estimate", 'String'>
 }
     
 
@@ -1669,25 +1628,6 @@ export type EstimateDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Inte
    * Limit how many Estimates to delete.
    */
   limit?: number
-}
-
-/**
- * Estimate.providerProfile
- */
-export type Estimate$providerProfileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the ProviderProfile
-   */
-  select?: Prisma.ProviderProfileSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the ProviderProfile
-   */
-  omit?: Prisma.ProviderProfileOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ProviderProfileInclude<ExtArgs> | null
-  where?: Prisma.ProviderProfileWhereInput
 }
 
 /**

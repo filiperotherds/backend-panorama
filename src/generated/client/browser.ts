@@ -23,11 +23,6 @@ export * from './enums';
  */
 export type User = Prisma.UserModel
 /**
- * Model UserProfile
- * 
- */
-export type UserProfile = Prisma.UserProfileModel
-/**
  * Model Token
  * 
  */
@@ -43,30 +38,20 @@ export type Invite = Prisma.InviteModel
  */
 export type Member = Prisma.MemberModel
 /**
+ * Model ClockinRegister
+ * 
+ */
+export type ClockinRegister = Prisma.ClockinRegisterModel
+/**
  * Model Organization
  * 
  */
 export type Organization = Prisma.OrganizationModel
 /**
- * Model ProviderProfile
- * 
- */
-export type ProviderProfile = Prisma.ProviderProfileModel
-/**
- * Model ClientProfile
- * 
- */
-export type ClientProfile = Prisma.ClientProfileModel
-/**
  * Model Address
  * 
  */
 export type Address = Prisma.AddressModel
-/**
- * Model Service
- * 
- */
-export type Service = Prisma.ServiceModel
 /**
  * Model Project
  * 

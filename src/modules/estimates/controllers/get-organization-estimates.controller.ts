@@ -7,22 +7,15 @@ import { EstimatesService } from '../estimates.service'
 @Controller('/estimates/:organizationId')
 @UseGuards(JwtAuthGuard)
 export class GetOrganizationController {
-  constructor(private estimatesService: EstimatesService) {}
+  constructor(private estimatesService: EstimatesService) { }
 
   @Get()
-  async getOrganizationEstimates(@CurrentUser() { ctx }: TokenPayload) {
-    if (!ctx.orgId) {
+  async getOrganizationEstimates(@CurrentUser() { sub }: TokenPayload) {
+    if (!sub) {
       throw new BadRequestException('Missing params')
     }
 
-    const profileId = ctx.profileId
-
-    if (!profileId) {
-      throw new BadRequestException('Missing profileId')
-    }
-
-    const estiamtes =
-      await this.estimatesService.getOrganizationEstimates(profileId)
+    const estiamtes = await this.estimatesService.getOrganizationEstimates(sub)
 
     return estiamtes
   }

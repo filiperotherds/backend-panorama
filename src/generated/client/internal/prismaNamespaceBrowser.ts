@@ -52,15 +52,12 @@ export const AnyNull = runtime.AnyNull
 
 export const ModelName = {
   User: 'User',
-  UserProfile: 'UserProfile',
   Token: 'Token',
   Invite: 'Invite',
   Member: 'Member',
+  ClockinRegister: 'ClockinRegister',
   Organization: 'Organization',
-  ProviderProfile: 'ProviderProfile',
-  ClientProfile: 'ClientProfile',
   Address: 'Address',
-  Service: 'Service',
   Project: 'Project',
   Estimate: 'Estimate'
 } as const
@@ -88,19 +85,10 @@ export const UserScalarFieldEnum = {
   password: 'password',
   avatarUrl: 'avatarUrl',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  accountType: 'accountType'
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
-
-
-export const UserProfileScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId'
-} as const
-
-export type UserProfileScalarFieldEnum = (typeof UserProfileScalarFieldEnum)[keyof typeof UserProfileScalarFieldEnum]
 
 
 export const TokenScalarFieldEnum = {
@@ -117,7 +105,6 @@ export const InviteScalarFieldEnum = {
   id: 'id',
   email: 'email',
   role: 'role',
-  type: 'type',
   createdAt: 'createdAt',
   authorId: 'authorId',
   organizationId: 'organizationId'
@@ -136,11 +123,24 @@ export const MemberScalarFieldEnum = {
 export type MemberScalarFieldEnum = (typeof MemberScalarFieldEnum)[keyof typeof MemberScalarFieldEnum]
 
 
+export const ClockinRegisterScalarFieldEnum = {
+  id: 'id',
+  clockIn: 'clockIn',
+  clockOut: 'clockOut',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt',
+  memberId: 'memberId',
+  organizationId: 'organizationId',
+  projectId: 'projectId'
+} as const
+
+export type ClockinRegisterScalarFieldEnum = (typeof ClockinRegisterScalarFieldEnum)[keyof typeof ClockinRegisterScalarFieldEnum]
+
+
 export const OrganizationScalarFieldEnum = {
   id: 'id',
   name: 'name',
   slug: 'slug',
-  type: 'type',
   domain: 'domain',
   shouldAttachUsersByDomain: 'shouldAttachUsersByDomain',
   avatarUrl: 'avatarUrl',
@@ -150,22 +150,6 @@ export const OrganizationScalarFieldEnum = {
 } as const
 
 export type OrganizationScalarFieldEnum = (typeof OrganizationScalarFieldEnum)[keyof typeof OrganizationScalarFieldEnum]
-
-
-export const ProviderProfileScalarFieldEnum = {
-  id: 'id',
-  organizationId: 'organizationId'
-} as const
-
-export type ProviderProfileScalarFieldEnum = (typeof ProviderProfileScalarFieldEnum)[keyof typeof ProviderProfileScalarFieldEnum]
-
-
-export const ClientProfileScalarFieldEnum = {
-  id: 'id',
-  organizationId: 'organizationId'
-} as const
-
-export type ClientProfileScalarFieldEnum = (typeof ClientProfileScalarFieldEnum)[keyof typeof ClientProfileScalarFieldEnum]
 
 
 export const AddressScalarFieldEnum = {
@@ -178,23 +162,10 @@ export const AddressScalarFieldEnum = {
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
   number: 'number',
-  userProfileId: 'userProfileId',
-  organizationId: 'organizationId'
+  projectId: 'projectId'
 } as const
 
 export type AddressScalarFieldEnum = (typeof AddressScalarFieldEnum)[keyof typeof AddressScalarFieldEnum]
-
-
-export const ServiceScalarFieldEnum = {
-  id: 'id',
-  name: 'name',
-  description: 'description',
-  slug: 'slug',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type ServiceScalarFieldEnum = (typeof ServiceScalarFieldEnum)[keyof typeof ServiceScalarFieldEnum]
 
 
 export const ProjectScalarFieldEnum = {
@@ -203,11 +174,8 @@ export const ProjectScalarFieldEnum = {
   photoUrls: 'photoUrls',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt',
-  status: 'status',
-  serviceId: 'serviceId',
-  providerProfileId: 'providerProfileId',
-  clientProfileId: 'clientProfileId',
-  userProfileId: 'userProfileId'
+  concluded: 'concluded',
+  organizationId: 'organizationId'
 } as const
 
 export type ProjectScalarFieldEnum = (typeof ProjectScalarFieldEnum)[keyof typeof ProjectScalarFieldEnum]
@@ -222,7 +190,7 @@ export const EstimateScalarFieldEnum = {
   createdAt: 'createdAt',
   validity: 'validity',
   projectId: 'projectId',
-  providerProfileId: 'providerProfileId'
+  organizationId: 'organizationId'
 } as const
 
 export type EstimateScalarFieldEnum = (typeof EstimateScalarFieldEnum)[keyof typeof EstimateScalarFieldEnum]

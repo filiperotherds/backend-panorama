@@ -28,7 +28,6 @@ export type OrganizationMinAggregateOutputType = {
   id: string | null
   name: string | null
   slug: string | null
-  type: $Enums.OrgType | null
   domain: string | null
   shouldAttachUsersByDomain: boolean | null
   avatarUrl: string | null
@@ -41,7 +40,6 @@ export type OrganizationMaxAggregateOutputType = {
   id: string | null
   name: string | null
   slug: string | null
-  type: $Enums.OrgType | null
   domain: string | null
   shouldAttachUsersByDomain: boolean | null
   avatarUrl: string | null
@@ -54,7 +52,6 @@ export type OrganizationCountAggregateOutputType = {
   id: number
   name: number
   slug: number
-  type: number
   domain: number
   shouldAttachUsersByDomain: number
   avatarUrl: number
@@ -69,7 +66,6 @@ export type OrganizationMinAggregateInputType = {
   id?: true
   name?: true
   slug?: true
-  type?: true
   domain?: true
   shouldAttachUsersByDomain?: true
   avatarUrl?: true
@@ -82,7 +78,6 @@ export type OrganizationMaxAggregateInputType = {
   id?: true
   name?: true
   slug?: true
-  type?: true
   domain?: true
   shouldAttachUsersByDomain?: true
   avatarUrl?: true
@@ -95,7 +90,6 @@ export type OrganizationCountAggregateInputType = {
   id?: true
   name?: true
   slug?: true
-  type?: true
   domain?: true
   shouldAttachUsersByDomain?: true
   avatarUrl?: true
@@ -181,7 +175,6 @@ export type OrganizationGroupByOutputType = {
   id: string
   name: string | null
   slug: string | null
-  type: $Enums.OrgType
   domain: string | null
   shouldAttachUsersByDomain: boolean
   avatarUrl: string | null
@@ -215,38 +208,36 @@ export type OrganizationWhereInput = {
   id?: Prisma.StringFilter<"Organization"> | string
   name?: Prisma.StringNullableFilter<"Organization"> | string | null
   slug?: Prisma.StringNullableFilter<"Organization"> | string | null
-  type?: Prisma.EnumOrgTypeFilter<"Organization"> | $Enums.OrgType
   domain?: Prisma.StringNullableFilter<"Organization"> | string | null
   shouldAttachUsersByDomain?: Prisma.BoolFilter<"Organization"> | boolean
   avatarUrl?: Prisma.StringNullableFilter<"Organization"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Organization"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Organization"> | Date | string
   ownerId?: Prisma.StringFilter<"Organization"> | string
-  address?: Prisma.AddressListRelationFilter
+  owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   invites?: Prisma.InviteListRelationFilter
   members?: Prisma.MemberListRelationFilter
-  owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  clientProfile?: Prisma.XOR<Prisma.ClientProfileNullableScalarRelationFilter, Prisma.ClientProfileWhereInput> | null
-  providerProfile?: Prisma.XOR<Prisma.ProviderProfileNullableScalarRelationFilter, Prisma.ProviderProfileWhereInput> | null
+  projects?: Prisma.ProjectListRelationFilter
+  estimates?: Prisma.EstimateListRelationFilter
+  clockinRegisters?: Prisma.ClockinRegisterListRelationFilter
 }
 
 export type OrganizationOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
   slug?: Prisma.SortOrderInput | Prisma.SortOrder
-  type?: Prisma.SortOrder
   domain?: Prisma.SortOrderInput | Prisma.SortOrder
   shouldAttachUsersByDomain?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   ownerId?: Prisma.SortOrder
-  address?: Prisma.AddressOrderByRelationAggregateInput
+  owner?: Prisma.UserOrderByWithRelationInput
   invites?: Prisma.InviteOrderByRelationAggregateInput
   members?: Prisma.MemberOrderByRelationAggregateInput
-  owner?: Prisma.UserOrderByWithRelationInput
-  clientProfile?: Prisma.ClientProfileOrderByWithRelationInput
-  providerProfile?: Prisma.ProviderProfileOrderByWithRelationInput
+  projects?: Prisma.ProjectOrderByRelationAggregateInput
+  estimates?: Prisma.EstimateOrderByRelationAggregateInput
+  clockinRegisters?: Prisma.ClockinRegisterOrderByRelationAggregateInput
 }
 
 export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
@@ -258,24 +249,22 @@ export type OrganizationWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.OrganizationWhereInput[]
   NOT?: Prisma.OrganizationWhereInput | Prisma.OrganizationWhereInput[]
   name?: Prisma.StringNullableFilter<"Organization"> | string | null
-  type?: Prisma.EnumOrgTypeFilter<"Organization"> | $Enums.OrgType
   shouldAttachUsersByDomain?: Prisma.BoolFilter<"Organization"> | boolean
   avatarUrl?: Prisma.StringNullableFilter<"Organization"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Organization"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Organization"> | Date | string
-  address?: Prisma.AddressListRelationFilter
+  owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   invites?: Prisma.InviteListRelationFilter
   members?: Prisma.MemberListRelationFilter
-  owner?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  clientProfile?: Prisma.XOR<Prisma.ClientProfileNullableScalarRelationFilter, Prisma.ClientProfileWhereInput> | null
-  providerProfile?: Prisma.XOR<Prisma.ProviderProfileNullableScalarRelationFilter, Prisma.ProviderProfileWhereInput> | null
+  projects?: Prisma.ProjectListRelationFilter
+  estimates?: Prisma.EstimateListRelationFilter
+  clockinRegisters?: Prisma.ClockinRegisterListRelationFilter
 }, "id" | "slug" | "domain" | "ownerId">
 
 export type OrganizationOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrderInput | Prisma.SortOrder
   slug?: Prisma.SortOrderInput | Prisma.SortOrder
-  type?: Prisma.SortOrder
   domain?: Prisma.SortOrderInput | Prisma.SortOrder
   shouldAttachUsersByDomain?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -294,7 +283,6 @@ export type OrganizationScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Organization"> | string
   name?: Prisma.StringNullableWithAggregatesFilter<"Organization"> | string | null
   slug?: Prisma.StringNullableWithAggregatesFilter<"Organization"> | string | null
-  type?: Prisma.EnumOrgTypeWithAggregatesFilter<"Organization"> | $Enums.OrgType
   domain?: Prisma.StringNullableWithAggregatesFilter<"Organization"> | string | null
   shouldAttachUsersByDomain?: Prisma.BoolWithAggregatesFilter<"Organization"> | boolean
   avatarUrl?: Prisma.StringNullableWithAggregatesFilter<"Organization"> | string | null
@@ -307,79 +295,74 @@ export type OrganizationCreateInput = {
   id?: string
   name?: string | null
   slug?: string | null
-  type: $Enums.OrgType
   domain?: string | null
   shouldAttachUsersByDomain?: boolean
   avatarUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  address?: Prisma.AddressCreateNestedManyWithoutOrganizationInput
+  owner: Prisma.UserCreateNestedOneWithoutOrganizationOwnerInput
   invites?: Prisma.InviteCreateNestedManyWithoutOrganizationInput
   members?: Prisma.MemberCreateNestedManyWithoutOrganizationInput
-  owner: Prisma.UserCreateNestedOneWithoutOrganizationOwnerInput
-  clientProfile?: Prisma.ClientProfileCreateNestedOneWithoutOrganizationInput
-  providerProfile?: Prisma.ProviderProfileCreateNestedOneWithoutOrganizationInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutOrganizationInput
+  estimates?: Prisma.EstimateCreateNestedManyWithoutOrganizationInput
+  clockinRegisters?: Prisma.ClockinRegisterCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateInput = {
   id?: string
   name?: string | null
   slug?: string | null
-  type: $Enums.OrgType
   domain?: string | null
   shouldAttachUsersByDomain?: boolean
   avatarUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ownerId: string
-  address?: Prisma.AddressUncheckedCreateNestedManyWithoutOrganizationInput
   invites?: Prisma.InviteUncheckedCreateNestedManyWithoutOrganizationInput
   members?: Prisma.MemberUncheckedCreateNestedManyWithoutOrganizationInput
-  clientProfile?: Prisma.ClientProfileUncheckedCreateNestedOneWithoutOrganizationInput
-  providerProfile?: Prisma.ProviderProfileUncheckedCreateNestedOneWithoutOrganizationInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOrganizationInput
+  estimates?: Prisma.EstimateUncheckedCreateNestedManyWithoutOrganizationInput
+  clockinRegisters?: Prisma.ClockinRegisterUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumOrgTypeFieldUpdateOperationsInput | $Enums.OrgType
   domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  address?: Prisma.AddressUpdateManyWithoutOrganizationNestedInput
+  owner?: Prisma.UserUpdateOneRequiredWithoutOrganizationOwnerNestedInput
   invites?: Prisma.InviteUpdateManyWithoutOrganizationNestedInput
   members?: Prisma.MemberUpdateManyWithoutOrganizationNestedInput
-  owner?: Prisma.UserUpdateOneRequiredWithoutOrganizationOwnerNestedInput
-  clientProfile?: Prisma.ClientProfileUpdateOneWithoutOrganizationNestedInput
-  providerProfile?: Prisma.ProviderProfileUpdateOneWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutOrganizationNestedInput
+  estimates?: Prisma.EstimateUpdateManyWithoutOrganizationNestedInput
+  clockinRegisters?: Prisma.ClockinRegisterUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumOrgTypeFieldUpdateOperationsInput | $Enums.OrgType
   domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.AddressUncheckedUpdateManyWithoutOrganizationNestedInput
   invites?: Prisma.InviteUncheckedUpdateManyWithoutOrganizationNestedInput
   members?: Prisma.MemberUncheckedUpdateManyWithoutOrganizationNestedInput
-  clientProfile?: Prisma.ClientProfileUncheckedUpdateOneWithoutOrganizationNestedInput
-  providerProfile?: Prisma.ProviderProfileUncheckedUpdateOneWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOrganizationNestedInput
+  estimates?: Prisma.EstimateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clockinRegisters?: Prisma.ClockinRegisterUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateManyInput = {
   id?: string
   name?: string | null
   slug?: string | null
-  type: $Enums.OrgType
   domain?: string | null
   shouldAttachUsersByDomain?: boolean
   avatarUrl?: string | null
@@ -392,7 +375,6 @@ export type OrganizationUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumOrgTypeFieldUpdateOperationsInput | $Enums.OrgType
   domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -404,7 +386,6 @@ export type OrganizationUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumOrgTypeFieldUpdateOperationsInput | $Enums.OrgType
   domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -427,7 +408,6 @@ export type OrganizationCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
-  type?: Prisma.SortOrder
   domain?: Prisma.SortOrder
   shouldAttachUsersByDomain?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrder
@@ -440,7 +420,6 @@ export type OrganizationMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
-  type?: Prisma.SortOrder
   domain?: Prisma.SortOrder
   shouldAttachUsersByDomain?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrder
@@ -453,7 +432,6 @@ export type OrganizationMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   slug?: Prisma.SortOrder
-  type?: Prisma.SortOrder
   domain?: Prisma.SortOrder
   shouldAttachUsersByDomain?: Prisma.SortOrder
   avatarUrl?: Prisma.SortOrder
@@ -522,86 +500,82 @@ export type OrganizationUpdateOneRequiredWithoutMembersNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutMembersInput, Prisma.OrganizationUpdateWithoutMembersInput>, Prisma.OrganizationUncheckedUpdateWithoutMembersInput>
 }
 
+export type OrganizationCreateNestedOneWithoutClockinRegistersInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutClockinRegistersInput, Prisma.OrganizationUncheckedCreateWithoutClockinRegistersInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutClockinRegistersInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+}
+
+export type OrganizationUpdateOneRequiredWithoutClockinRegistersNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutClockinRegistersInput, Prisma.OrganizationUncheckedCreateWithoutClockinRegistersInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutClockinRegistersInput
+  upsert?: Prisma.OrganizationUpsertWithoutClockinRegistersInput
+  connect?: Prisma.OrganizationWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutClockinRegistersInput, Prisma.OrganizationUpdateWithoutClockinRegistersInput>, Prisma.OrganizationUncheckedUpdateWithoutClockinRegistersInput>
+}
+
 export type BoolFieldUpdateOperationsInput = {
   set?: boolean
 }
 
-export type OrganizationCreateNestedOneWithoutProviderProfileInput = {
-  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutProviderProfileInput, Prisma.OrganizationUncheckedCreateWithoutProviderProfileInput>
-  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutProviderProfileInput
+export type OrganizationCreateNestedOneWithoutProjectsInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutProjectsInput, Prisma.OrganizationUncheckedCreateWithoutProjectsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutProjectsInput
   connect?: Prisma.OrganizationWhereUniqueInput
 }
 
-export type OrganizationUpdateOneRequiredWithoutProviderProfileNestedInput = {
-  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutProviderProfileInput, Prisma.OrganizationUncheckedCreateWithoutProviderProfileInput>
-  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutProviderProfileInput
-  upsert?: Prisma.OrganizationUpsertWithoutProviderProfileInput
+export type OrganizationUpdateOneRequiredWithoutProjectsNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutProjectsInput, Prisma.OrganizationUncheckedCreateWithoutProjectsInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutProjectsInput
+  upsert?: Prisma.OrganizationUpsertWithoutProjectsInput
   connect?: Prisma.OrganizationWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutProviderProfileInput, Prisma.OrganizationUpdateWithoutProviderProfileInput>, Prisma.OrganizationUncheckedUpdateWithoutProviderProfileInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutProjectsInput, Prisma.OrganizationUpdateWithoutProjectsInput>, Prisma.OrganizationUncheckedUpdateWithoutProjectsInput>
 }
 
-export type OrganizationCreateNestedOneWithoutClientProfileInput = {
-  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutClientProfileInput, Prisma.OrganizationUncheckedCreateWithoutClientProfileInput>
-  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutClientProfileInput
-  connect?: Prisma.OrganizationWhereUniqueInput
-}
-
-export type OrganizationUpdateOneRequiredWithoutClientProfileNestedInput = {
-  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutClientProfileInput, Prisma.OrganizationUncheckedCreateWithoutClientProfileInput>
-  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutClientProfileInput
-  upsert?: Prisma.OrganizationUpsertWithoutClientProfileInput
-  connect?: Prisma.OrganizationWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutClientProfileInput, Prisma.OrganizationUpdateWithoutClientProfileInput>, Prisma.OrganizationUncheckedUpdateWithoutClientProfileInput>
-}
-
-export type OrganizationCreateNestedOneWithoutAddressInput = {
-  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutAddressInput, Prisma.OrganizationUncheckedCreateWithoutAddressInput>
-  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutAddressInput
+export type OrganizationCreateNestedOneWithoutEstimatesInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutEstimatesInput, Prisma.OrganizationUncheckedCreateWithoutEstimatesInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutEstimatesInput
   connect?: Prisma.OrganizationWhereUniqueInput
 }
 
-export type OrganizationUpdateOneWithoutAddressNestedInput = {
-  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutAddressInput, Prisma.OrganizationUncheckedCreateWithoutAddressInput>
-  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutAddressInput
-  upsert?: Prisma.OrganizationUpsertWithoutAddressInput
-  disconnect?: Prisma.OrganizationWhereInput | boolean
-  delete?: Prisma.OrganizationWhereInput | boolean
+export type OrganizationUpdateOneRequiredWithoutEstimatesNestedInput = {
+  create?: Prisma.XOR<Prisma.OrganizationCreateWithoutEstimatesInput, Prisma.OrganizationUncheckedCreateWithoutEstimatesInput>
+  connectOrCreate?: Prisma.OrganizationCreateOrConnectWithoutEstimatesInput
+  upsert?: Prisma.OrganizationUpsertWithoutEstimatesInput
   connect?: Prisma.OrganizationWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutAddressInput, Prisma.OrganizationUpdateWithoutAddressInput>, Prisma.OrganizationUncheckedUpdateWithoutAddressInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.OrganizationUpdateToOneWithWhereWithoutEstimatesInput, Prisma.OrganizationUpdateWithoutEstimatesInput>, Prisma.OrganizationUncheckedUpdateWithoutEstimatesInput>
 }
 
 export type OrganizationCreateWithoutOwnerInput = {
   id?: string
   name?: string | null
   slug?: string | null
-  type: $Enums.OrgType
   domain?: string | null
   shouldAttachUsersByDomain?: boolean
   avatarUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  address?: Prisma.AddressCreateNestedManyWithoutOrganizationInput
   invites?: Prisma.InviteCreateNestedManyWithoutOrganizationInput
   members?: Prisma.MemberCreateNestedManyWithoutOrganizationInput
-  clientProfile?: Prisma.ClientProfileCreateNestedOneWithoutOrganizationInput
-  providerProfile?: Prisma.ProviderProfileCreateNestedOneWithoutOrganizationInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutOrganizationInput
+  estimates?: Prisma.EstimateCreateNestedManyWithoutOrganizationInput
+  clockinRegisters?: Prisma.ClockinRegisterCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutOwnerInput = {
   id?: string
   name?: string | null
   slug?: string | null
-  type: $Enums.OrgType
   domain?: string | null
   shouldAttachUsersByDomain?: boolean
   avatarUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  address?: Prisma.AddressUncheckedCreateNestedManyWithoutOrganizationInput
   invites?: Prisma.InviteUncheckedCreateNestedManyWithoutOrganizationInput
   members?: Prisma.MemberUncheckedCreateNestedManyWithoutOrganizationInput
-  clientProfile?: Prisma.ClientProfileUncheckedCreateNestedOneWithoutOrganizationInput
-  providerProfile?: Prisma.ProviderProfileUncheckedCreateNestedOneWithoutOrganizationInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOrganizationInput
+  estimates?: Prisma.EstimateUncheckedCreateNestedManyWithoutOrganizationInput
+  clockinRegisters?: Prisma.ClockinRegisterUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutOwnerInput = {
@@ -624,68 +598,64 @@ export type OrganizationUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumOrgTypeFieldUpdateOperationsInput | $Enums.OrgType
   domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  address?: Prisma.AddressUpdateManyWithoutOrganizationNestedInput
   invites?: Prisma.InviteUpdateManyWithoutOrganizationNestedInput
   members?: Prisma.MemberUpdateManyWithoutOrganizationNestedInput
-  clientProfile?: Prisma.ClientProfileUpdateOneWithoutOrganizationNestedInput
-  providerProfile?: Prisma.ProviderProfileUpdateOneWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutOrganizationNestedInput
+  estimates?: Prisma.EstimateUpdateManyWithoutOrganizationNestedInput
+  clockinRegisters?: Prisma.ClockinRegisterUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutOwnerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumOrgTypeFieldUpdateOperationsInput | $Enums.OrgType
   domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  address?: Prisma.AddressUncheckedUpdateManyWithoutOrganizationNestedInput
   invites?: Prisma.InviteUncheckedUpdateManyWithoutOrganizationNestedInput
   members?: Prisma.MemberUncheckedUpdateManyWithoutOrganizationNestedInput
-  clientProfile?: Prisma.ClientProfileUncheckedUpdateOneWithoutOrganizationNestedInput
-  providerProfile?: Prisma.ProviderProfileUncheckedUpdateOneWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOrganizationNestedInput
+  estimates?: Prisma.EstimateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clockinRegisters?: Prisma.ClockinRegisterUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutInvitesInput = {
   id?: string
   name?: string | null
   slug?: string | null
-  type: $Enums.OrgType
   domain?: string | null
   shouldAttachUsersByDomain?: boolean
   avatarUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  address?: Prisma.AddressCreateNestedManyWithoutOrganizationInput
-  members?: Prisma.MemberCreateNestedManyWithoutOrganizationInput
   owner: Prisma.UserCreateNestedOneWithoutOrganizationOwnerInput
-  clientProfile?: Prisma.ClientProfileCreateNestedOneWithoutOrganizationInput
-  providerProfile?: Prisma.ProviderProfileCreateNestedOneWithoutOrganizationInput
+  members?: Prisma.MemberCreateNestedManyWithoutOrganizationInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutOrganizationInput
+  estimates?: Prisma.EstimateCreateNestedManyWithoutOrganizationInput
+  clockinRegisters?: Prisma.ClockinRegisterCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutInvitesInput = {
   id?: string
   name?: string | null
   slug?: string | null
-  type: $Enums.OrgType
   domain?: string | null
   shouldAttachUsersByDomain?: boolean
   avatarUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ownerId: string
-  address?: Prisma.AddressUncheckedCreateNestedManyWithoutOrganizationInput
   members?: Prisma.MemberUncheckedCreateNestedManyWithoutOrganizationInput
-  clientProfile?: Prisma.ClientProfileUncheckedCreateNestedOneWithoutOrganizationInput
-  providerProfile?: Prisma.ProviderProfileUncheckedCreateNestedOneWithoutOrganizationInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOrganizationInput
+  estimates?: Prisma.EstimateUncheckedCreateNestedManyWithoutOrganizationInput
+  clockinRegisters?: Prisma.ClockinRegisterUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutInvitesInput = {
@@ -708,68 +678,64 @@ export type OrganizationUpdateWithoutInvitesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumOrgTypeFieldUpdateOperationsInput | $Enums.OrgType
   domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  address?: Prisma.AddressUpdateManyWithoutOrganizationNestedInput
-  members?: Prisma.MemberUpdateManyWithoutOrganizationNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOrganizationOwnerNestedInput
-  clientProfile?: Prisma.ClientProfileUpdateOneWithoutOrganizationNestedInput
-  providerProfile?: Prisma.ProviderProfileUpdateOneWithoutOrganizationNestedInput
+  members?: Prisma.MemberUpdateManyWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutOrganizationNestedInput
+  estimates?: Prisma.EstimateUpdateManyWithoutOrganizationNestedInput
+  clockinRegisters?: Prisma.ClockinRegisterUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutInvitesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumOrgTypeFieldUpdateOperationsInput | $Enums.OrgType
   domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.AddressUncheckedUpdateManyWithoutOrganizationNestedInput
   members?: Prisma.MemberUncheckedUpdateManyWithoutOrganizationNestedInput
-  clientProfile?: Prisma.ClientProfileUncheckedUpdateOneWithoutOrganizationNestedInput
-  providerProfile?: Prisma.ProviderProfileUncheckedUpdateOneWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOrganizationNestedInput
+  estimates?: Prisma.EstimateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clockinRegisters?: Prisma.ClockinRegisterUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationCreateWithoutMembersInput = {
   id?: string
   name?: string | null
   slug?: string | null
-  type: $Enums.OrgType
   domain?: string | null
   shouldAttachUsersByDomain?: boolean
   avatarUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  address?: Prisma.AddressCreateNestedManyWithoutOrganizationInput
-  invites?: Prisma.InviteCreateNestedManyWithoutOrganizationInput
   owner: Prisma.UserCreateNestedOneWithoutOrganizationOwnerInput
-  clientProfile?: Prisma.ClientProfileCreateNestedOneWithoutOrganizationInput
-  providerProfile?: Prisma.ProviderProfileCreateNestedOneWithoutOrganizationInput
+  invites?: Prisma.InviteCreateNestedManyWithoutOrganizationInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutOrganizationInput
+  estimates?: Prisma.EstimateCreateNestedManyWithoutOrganizationInput
+  clockinRegisters?: Prisma.ClockinRegisterCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationUncheckedCreateWithoutMembersInput = {
   id?: string
   name?: string | null
   slug?: string | null
-  type: $Enums.OrgType
   domain?: string | null
   shouldAttachUsersByDomain?: boolean
   avatarUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   ownerId: string
-  address?: Prisma.AddressUncheckedCreateNestedManyWithoutOrganizationInput
   invites?: Prisma.InviteUncheckedCreateNestedManyWithoutOrganizationInput
-  clientProfile?: Prisma.ClientProfileUncheckedCreateNestedOneWithoutOrganizationInput
-  providerProfile?: Prisma.ProviderProfileUncheckedCreateNestedOneWithoutOrganizationInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOrganizationInput
+  estimates?: Prisma.EstimateUncheckedCreateNestedManyWithoutOrganizationInput
+  clockinRegisters?: Prisma.ClockinRegisterUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
 export type OrganizationCreateOrConnectWithoutMembersInput = {
@@ -792,226 +758,54 @@ export type OrganizationUpdateWithoutMembersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumOrgTypeFieldUpdateOperationsInput | $Enums.OrgType
   domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  address?: Prisma.AddressUpdateManyWithoutOrganizationNestedInput
-  invites?: Prisma.InviteUpdateManyWithoutOrganizationNestedInput
   owner?: Prisma.UserUpdateOneRequiredWithoutOrganizationOwnerNestedInput
-  clientProfile?: Prisma.ClientProfileUpdateOneWithoutOrganizationNestedInput
-  providerProfile?: Prisma.ProviderProfileUpdateOneWithoutOrganizationNestedInput
+  invites?: Prisma.InviteUpdateManyWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutOrganizationNestedInput
+  estimates?: Prisma.EstimateUpdateManyWithoutOrganizationNestedInput
+  clockinRegisters?: Prisma.ClockinRegisterUpdateManyWithoutOrganizationNestedInput
 }
 
 export type OrganizationUncheckedUpdateWithoutMembersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumOrgTypeFieldUpdateOperationsInput | $Enums.OrgType
   domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.AddressUncheckedUpdateManyWithoutOrganizationNestedInput
   invites?: Prisma.InviteUncheckedUpdateManyWithoutOrganizationNestedInput
-  clientProfile?: Prisma.ClientProfileUncheckedUpdateOneWithoutOrganizationNestedInput
-  providerProfile?: Prisma.ProviderProfileUncheckedUpdateOneWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOrganizationNestedInput
+  estimates?: Prisma.EstimateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clockinRegisters?: Prisma.ClockinRegisterUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
-export type OrganizationCreateWithoutProviderProfileInput = {
+export type OrganizationCreateWithoutClockinRegistersInput = {
   id?: string
   name?: string | null
   slug?: string | null
-  type: $Enums.OrgType
   domain?: string | null
   shouldAttachUsersByDomain?: boolean
   avatarUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  address?: Prisma.AddressCreateNestedManyWithoutOrganizationInput
+  owner: Prisma.UserCreateNestedOneWithoutOrganizationOwnerInput
   invites?: Prisma.InviteCreateNestedManyWithoutOrganizationInput
   members?: Prisma.MemberCreateNestedManyWithoutOrganizationInput
-  owner: Prisma.UserCreateNestedOneWithoutOrganizationOwnerInput
-  clientProfile?: Prisma.ClientProfileCreateNestedOneWithoutOrganizationInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutOrganizationInput
+  estimates?: Prisma.EstimateCreateNestedManyWithoutOrganizationInput
 }
 
-export type OrganizationUncheckedCreateWithoutProviderProfileInput = {
+export type OrganizationUncheckedCreateWithoutClockinRegistersInput = {
   id?: string
   name?: string | null
   slug?: string | null
-  type: $Enums.OrgType
-  domain?: string | null
-  shouldAttachUsersByDomain?: boolean
-  avatarUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  ownerId: string
-  address?: Prisma.AddressUncheckedCreateNestedManyWithoutOrganizationInput
-  invites?: Prisma.InviteUncheckedCreateNestedManyWithoutOrganizationInput
-  members?: Prisma.MemberUncheckedCreateNestedManyWithoutOrganizationInput
-  clientProfile?: Prisma.ClientProfileUncheckedCreateNestedOneWithoutOrganizationInput
-}
-
-export type OrganizationCreateOrConnectWithoutProviderProfileInput = {
-  where: Prisma.OrganizationWhereUniqueInput
-  create: Prisma.XOR<Prisma.OrganizationCreateWithoutProviderProfileInput, Prisma.OrganizationUncheckedCreateWithoutProviderProfileInput>
-}
-
-export type OrganizationUpsertWithoutProviderProfileInput = {
-  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutProviderProfileInput, Prisma.OrganizationUncheckedUpdateWithoutProviderProfileInput>
-  create: Prisma.XOR<Prisma.OrganizationCreateWithoutProviderProfileInput, Prisma.OrganizationUncheckedCreateWithoutProviderProfileInput>
-  where?: Prisma.OrganizationWhereInput
-}
-
-export type OrganizationUpdateToOneWithWhereWithoutProviderProfileInput = {
-  where?: Prisma.OrganizationWhereInput
-  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutProviderProfileInput, Prisma.OrganizationUncheckedUpdateWithoutProviderProfileInput>
-}
-
-export type OrganizationUpdateWithoutProviderProfileInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumOrgTypeFieldUpdateOperationsInput | $Enums.OrgType
-  domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  address?: Prisma.AddressUpdateManyWithoutOrganizationNestedInput
-  invites?: Prisma.InviteUpdateManyWithoutOrganizationNestedInput
-  members?: Prisma.MemberUpdateManyWithoutOrganizationNestedInput
-  owner?: Prisma.UserUpdateOneRequiredWithoutOrganizationOwnerNestedInput
-  clientProfile?: Prisma.ClientProfileUpdateOneWithoutOrganizationNestedInput
-}
-
-export type OrganizationUncheckedUpdateWithoutProviderProfileInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumOrgTypeFieldUpdateOperationsInput | $Enums.OrgType
-  domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.AddressUncheckedUpdateManyWithoutOrganizationNestedInput
-  invites?: Prisma.InviteUncheckedUpdateManyWithoutOrganizationNestedInput
-  members?: Prisma.MemberUncheckedUpdateManyWithoutOrganizationNestedInput
-  clientProfile?: Prisma.ClientProfileUncheckedUpdateOneWithoutOrganizationNestedInput
-}
-
-export type OrganizationCreateWithoutClientProfileInput = {
-  id?: string
-  name?: string | null
-  slug?: string | null
-  type: $Enums.OrgType
-  domain?: string | null
-  shouldAttachUsersByDomain?: boolean
-  avatarUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  address?: Prisma.AddressCreateNestedManyWithoutOrganizationInput
-  invites?: Prisma.InviteCreateNestedManyWithoutOrganizationInput
-  members?: Prisma.MemberCreateNestedManyWithoutOrganizationInput
-  owner: Prisma.UserCreateNestedOneWithoutOrganizationOwnerInput
-  providerProfile?: Prisma.ProviderProfileCreateNestedOneWithoutOrganizationInput
-}
-
-export type OrganizationUncheckedCreateWithoutClientProfileInput = {
-  id?: string
-  name?: string | null
-  slug?: string | null
-  type: $Enums.OrgType
-  domain?: string | null
-  shouldAttachUsersByDomain?: boolean
-  avatarUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  ownerId: string
-  address?: Prisma.AddressUncheckedCreateNestedManyWithoutOrganizationInput
-  invites?: Prisma.InviteUncheckedCreateNestedManyWithoutOrganizationInput
-  members?: Prisma.MemberUncheckedCreateNestedManyWithoutOrganizationInput
-  providerProfile?: Prisma.ProviderProfileUncheckedCreateNestedOneWithoutOrganizationInput
-}
-
-export type OrganizationCreateOrConnectWithoutClientProfileInput = {
-  where: Prisma.OrganizationWhereUniqueInput
-  create: Prisma.XOR<Prisma.OrganizationCreateWithoutClientProfileInput, Prisma.OrganizationUncheckedCreateWithoutClientProfileInput>
-}
-
-export type OrganizationUpsertWithoutClientProfileInput = {
-  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutClientProfileInput, Prisma.OrganizationUncheckedUpdateWithoutClientProfileInput>
-  create: Prisma.XOR<Prisma.OrganizationCreateWithoutClientProfileInput, Prisma.OrganizationUncheckedCreateWithoutClientProfileInput>
-  where?: Prisma.OrganizationWhereInput
-}
-
-export type OrganizationUpdateToOneWithWhereWithoutClientProfileInput = {
-  where?: Prisma.OrganizationWhereInput
-  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutClientProfileInput, Prisma.OrganizationUncheckedUpdateWithoutClientProfileInput>
-}
-
-export type OrganizationUpdateWithoutClientProfileInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumOrgTypeFieldUpdateOperationsInput | $Enums.OrgType
-  domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  address?: Prisma.AddressUpdateManyWithoutOrganizationNestedInput
-  invites?: Prisma.InviteUpdateManyWithoutOrganizationNestedInput
-  members?: Prisma.MemberUpdateManyWithoutOrganizationNestedInput
-  owner?: Prisma.UserUpdateOneRequiredWithoutOrganizationOwnerNestedInput
-  providerProfile?: Prisma.ProviderProfileUpdateOneWithoutOrganizationNestedInput
-}
-
-export type OrganizationUncheckedUpdateWithoutClientProfileInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumOrgTypeFieldUpdateOperationsInput | $Enums.OrgType
-  domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
-  address?: Prisma.AddressUncheckedUpdateManyWithoutOrganizationNestedInput
-  invites?: Prisma.InviteUncheckedUpdateManyWithoutOrganizationNestedInput
-  members?: Prisma.MemberUncheckedUpdateManyWithoutOrganizationNestedInput
-  providerProfile?: Prisma.ProviderProfileUncheckedUpdateOneWithoutOrganizationNestedInput
-}
-
-export type OrganizationCreateWithoutAddressInput = {
-  id?: string
-  name?: string | null
-  slug?: string | null
-  type: $Enums.OrgType
-  domain?: string | null
-  shouldAttachUsersByDomain?: boolean
-  avatarUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  invites?: Prisma.InviteCreateNestedManyWithoutOrganizationInput
-  members?: Prisma.MemberCreateNestedManyWithoutOrganizationInput
-  owner: Prisma.UserCreateNestedOneWithoutOrganizationOwnerInput
-  clientProfile?: Prisma.ClientProfileCreateNestedOneWithoutOrganizationInput
-  providerProfile?: Prisma.ProviderProfileCreateNestedOneWithoutOrganizationInput
-}
-
-export type OrganizationUncheckedCreateWithoutAddressInput = {
-  id?: string
-  name?: string | null
-  slug?: string | null
-  type: $Enums.OrgType
   domain?: string | null
   shouldAttachUsersByDomain?: boolean
   avatarUrl?: string | null
@@ -1020,48 +814,46 @@ export type OrganizationUncheckedCreateWithoutAddressInput = {
   ownerId: string
   invites?: Prisma.InviteUncheckedCreateNestedManyWithoutOrganizationInput
   members?: Prisma.MemberUncheckedCreateNestedManyWithoutOrganizationInput
-  clientProfile?: Prisma.ClientProfileUncheckedCreateNestedOneWithoutOrganizationInput
-  providerProfile?: Prisma.ProviderProfileUncheckedCreateNestedOneWithoutOrganizationInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOrganizationInput
+  estimates?: Prisma.EstimateUncheckedCreateNestedManyWithoutOrganizationInput
 }
 
-export type OrganizationCreateOrConnectWithoutAddressInput = {
+export type OrganizationCreateOrConnectWithoutClockinRegistersInput = {
   where: Prisma.OrganizationWhereUniqueInput
-  create: Prisma.XOR<Prisma.OrganizationCreateWithoutAddressInput, Prisma.OrganizationUncheckedCreateWithoutAddressInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutClockinRegistersInput, Prisma.OrganizationUncheckedCreateWithoutClockinRegistersInput>
 }
 
-export type OrganizationUpsertWithoutAddressInput = {
-  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutAddressInput, Prisma.OrganizationUncheckedUpdateWithoutAddressInput>
-  create: Prisma.XOR<Prisma.OrganizationCreateWithoutAddressInput, Prisma.OrganizationUncheckedCreateWithoutAddressInput>
+export type OrganizationUpsertWithoutClockinRegistersInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutClockinRegistersInput, Prisma.OrganizationUncheckedUpdateWithoutClockinRegistersInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutClockinRegistersInput, Prisma.OrganizationUncheckedCreateWithoutClockinRegistersInput>
   where?: Prisma.OrganizationWhereInput
 }
 
-export type OrganizationUpdateToOneWithWhereWithoutAddressInput = {
+export type OrganizationUpdateToOneWithWhereWithoutClockinRegistersInput = {
   where?: Prisma.OrganizationWhereInput
-  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutAddressInput, Prisma.OrganizationUncheckedUpdateWithoutAddressInput>
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutClockinRegistersInput, Prisma.OrganizationUncheckedUpdateWithoutClockinRegistersInput>
 }
 
-export type OrganizationUpdateWithoutAddressInput = {
+export type OrganizationUpdateWithoutClockinRegistersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumOrgTypeFieldUpdateOperationsInput | $Enums.OrgType
   domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOrganizationOwnerNestedInput
   invites?: Prisma.InviteUpdateManyWithoutOrganizationNestedInput
   members?: Prisma.MemberUpdateManyWithoutOrganizationNestedInput
-  owner?: Prisma.UserUpdateOneRequiredWithoutOrganizationOwnerNestedInput
-  clientProfile?: Prisma.ClientProfileUpdateOneWithoutOrganizationNestedInput
-  providerProfile?: Prisma.ProviderProfileUpdateOneWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutOrganizationNestedInput
+  estimates?: Prisma.EstimateUpdateManyWithoutOrganizationNestedInput
 }
 
-export type OrganizationUncheckedUpdateWithoutAddressInput = {
+export type OrganizationUncheckedUpdateWithoutClockinRegistersInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  type?: Prisma.EnumOrgTypeFieldUpdateOperationsInput | $Enums.OrgType
   domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
   avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1070,8 +862,168 @@ export type OrganizationUncheckedUpdateWithoutAddressInput = {
   ownerId?: Prisma.StringFieldUpdateOperationsInput | string
   invites?: Prisma.InviteUncheckedUpdateManyWithoutOrganizationNestedInput
   members?: Prisma.MemberUncheckedUpdateManyWithoutOrganizationNestedInput
-  clientProfile?: Prisma.ClientProfileUncheckedUpdateOneWithoutOrganizationNestedInput
-  providerProfile?: Prisma.ProviderProfileUncheckedUpdateOneWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOrganizationNestedInput
+  estimates?: Prisma.EstimateUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationCreateWithoutProjectsInput = {
+  id?: string
+  name?: string | null
+  slug?: string | null
+  domain?: string | null
+  shouldAttachUsersByDomain?: boolean
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOrganizationOwnerInput
+  invites?: Prisma.InviteCreateNestedManyWithoutOrganizationInput
+  members?: Prisma.MemberCreateNestedManyWithoutOrganizationInput
+  estimates?: Prisma.EstimateCreateNestedManyWithoutOrganizationInput
+  clockinRegisters?: Prisma.ClockinRegisterCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationUncheckedCreateWithoutProjectsInput = {
+  id?: string
+  name?: string | null
+  slug?: string | null
+  domain?: string | null
+  shouldAttachUsersByDomain?: boolean
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ownerId: string
+  invites?: Prisma.InviteUncheckedCreateNestedManyWithoutOrganizationInput
+  members?: Prisma.MemberUncheckedCreateNestedManyWithoutOrganizationInput
+  estimates?: Prisma.EstimateUncheckedCreateNestedManyWithoutOrganizationInput
+  clockinRegisters?: Prisma.ClockinRegisterUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationCreateOrConnectWithoutProjectsInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutProjectsInput, Prisma.OrganizationUncheckedCreateWithoutProjectsInput>
+}
+
+export type OrganizationUpsertWithoutProjectsInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutProjectsInput, Prisma.OrganizationUncheckedUpdateWithoutProjectsInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutProjectsInput, Prisma.OrganizationUncheckedCreateWithoutProjectsInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutProjectsInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutProjectsInput, Prisma.OrganizationUncheckedUpdateWithoutProjectsInput>
+}
+
+export type OrganizationUpdateWithoutProjectsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOrganizationOwnerNestedInput
+  invites?: Prisma.InviteUpdateManyWithoutOrganizationNestedInput
+  members?: Prisma.MemberUpdateManyWithoutOrganizationNestedInput
+  estimates?: Prisma.EstimateUpdateManyWithoutOrganizationNestedInput
+  clockinRegisters?: Prisma.ClockinRegisterUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutProjectsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  invites?: Prisma.InviteUncheckedUpdateManyWithoutOrganizationNestedInput
+  members?: Prisma.MemberUncheckedUpdateManyWithoutOrganizationNestedInput
+  estimates?: Prisma.EstimateUncheckedUpdateManyWithoutOrganizationNestedInput
+  clockinRegisters?: Prisma.ClockinRegisterUncheckedUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationCreateWithoutEstimatesInput = {
+  id?: string
+  name?: string | null
+  slug?: string | null
+  domain?: string | null
+  shouldAttachUsersByDomain?: boolean
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  owner: Prisma.UserCreateNestedOneWithoutOrganizationOwnerInput
+  invites?: Prisma.InviteCreateNestedManyWithoutOrganizationInput
+  members?: Prisma.MemberCreateNestedManyWithoutOrganizationInput
+  projects?: Prisma.ProjectCreateNestedManyWithoutOrganizationInput
+  clockinRegisters?: Prisma.ClockinRegisterCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationUncheckedCreateWithoutEstimatesInput = {
+  id?: string
+  name?: string | null
+  slug?: string | null
+  domain?: string | null
+  shouldAttachUsersByDomain?: boolean
+  avatarUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  ownerId: string
+  invites?: Prisma.InviteUncheckedCreateNestedManyWithoutOrganizationInput
+  members?: Prisma.MemberUncheckedCreateNestedManyWithoutOrganizationInput
+  projects?: Prisma.ProjectUncheckedCreateNestedManyWithoutOrganizationInput
+  clockinRegisters?: Prisma.ClockinRegisterUncheckedCreateNestedManyWithoutOrganizationInput
+}
+
+export type OrganizationCreateOrConnectWithoutEstimatesInput = {
+  where: Prisma.OrganizationWhereUniqueInput
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutEstimatesInput, Prisma.OrganizationUncheckedCreateWithoutEstimatesInput>
+}
+
+export type OrganizationUpsertWithoutEstimatesInput = {
+  update: Prisma.XOR<Prisma.OrganizationUpdateWithoutEstimatesInput, Prisma.OrganizationUncheckedUpdateWithoutEstimatesInput>
+  create: Prisma.XOR<Prisma.OrganizationCreateWithoutEstimatesInput, Prisma.OrganizationUncheckedCreateWithoutEstimatesInput>
+  where?: Prisma.OrganizationWhereInput
+}
+
+export type OrganizationUpdateToOneWithWhereWithoutEstimatesInput = {
+  where?: Prisma.OrganizationWhereInput
+  data: Prisma.XOR<Prisma.OrganizationUpdateWithoutEstimatesInput, Prisma.OrganizationUncheckedUpdateWithoutEstimatesInput>
+}
+
+export type OrganizationUpdateWithoutEstimatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  owner?: Prisma.UserUpdateOneRequiredWithoutOrganizationOwnerNestedInput
+  invites?: Prisma.InviteUpdateManyWithoutOrganizationNestedInput
+  members?: Prisma.MemberUpdateManyWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUpdateManyWithoutOrganizationNestedInput
+  clockinRegisters?: Prisma.ClockinRegisterUpdateManyWithoutOrganizationNestedInput
+}
+
+export type OrganizationUncheckedUpdateWithoutEstimatesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  slug?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  domain?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shouldAttachUsersByDomain?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  avatarUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  ownerId?: Prisma.StringFieldUpdateOperationsInput | string
+  invites?: Prisma.InviteUncheckedUpdateManyWithoutOrganizationNestedInput
+  members?: Prisma.MemberUncheckedUpdateManyWithoutOrganizationNestedInput
+  projects?: Prisma.ProjectUncheckedUpdateManyWithoutOrganizationNestedInput
+  clockinRegisters?: Prisma.ClockinRegisterUncheckedUpdateManyWithoutOrganizationNestedInput
 }
 
 
@@ -1080,15 +1032,19 @@ export type OrganizationUncheckedUpdateWithoutAddressInput = {
  */
 
 export type OrganizationCountOutputType = {
-  address: number
   invites: number
   members: number
+  projects: number
+  estimates: number
+  clockinRegisters: number
 }
 
 export type OrganizationCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  address?: boolean | OrganizationCountOutputTypeCountAddressArgs
   invites?: boolean | OrganizationCountOutputTypeCountInvitesArgs
   members?: boolean | OrganizationCountOutputTypeCountMembersArgs
+  projects?: boolean | OrganizationCountOutputTypeCountProjectsArgs
+  estimates?: boolean | OrganizationCountOutputTypeCountEstimatesArgs
+  clockinRegisters?: boolean | OrganizationCountOutputTypeCountClockinRegistersArgs
 }
 
 /**
@@ -1099,13 +1055,6 @@ export type OrganizationCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types
    * Select specific fields to fetch from the OrganizationCountOutputType
    */
   select?: Prisma.OrganizationCountOutputTypeSelect<ExtArgs> | null
-}
-
-/**
- * OrganizationCountOutputType without action
- */
-export type OrganizationCountOutputTypeCountAddressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.AddressWhereInput
 }
 
 /**
@@ -1122,24 +1071,44 @@ export type OrganizationCountOutputTypeCountMembersArgs<ExtArgs extends runtime.
   where?: Prisma.MemberWhereInput
 }
 
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountProjectsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProjectWhereInput
+}
+
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountEstimatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.EstimateWhereInput
+}
+
+/**
+ * OrganizationCountOutputType without action
+ */
+export type OrganizationCountOutputTypeCountClockinRegistersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClockinRegisterWhereInput
+}
+
 
 export type OrganizationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
   slug?: boolean
-  type?: boolean
   domain?: boolean
   shouldAttachUsersByDomain?: boolean
   avatarUrl?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   ownerId?: boolean
-  address?: boolean | Prisma.Organization$addressArgs<ExtArgs>
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   invites?: boolean | Prisma.Organization$invitesArgs<ExtArgs>
   members?: boolean | Prisma.Organization$membersArgs<ExtArgs>
-  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  clientProfile?: boolean | Prisma.Organization$clientProfileArgs<ExtArgs>
-  providerProfile?: boolean | Prisma.Organization$providerProfileArgs<ExtArgs>
+  projects?: boolean | Prisma.Organization$projectsArgs<ExtArgs>
+  estimates?: boolean | Prisma.Organization$estimatesArgs<ExtArgs>
+  clockinRegisters?: boolean | Prisma.Organization$clockinRegistersArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["organization"]>
 
@@ -1147,7 +1116,6 @@ export type OrganizationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   id?: boolean
   name?: boolean
   slug?: boolean
-  type?: boolean
   domain?: boolean
   shouldAttachUsersByDomain?: boolean
   avatarUrl?: boolean
@@ -1161,7 +1129,6 @@ export type OrganizationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   id?: boolean
   name?: boolean
   slug?: boolean
-  type?: boolean
   domain?: boolean
   shouldAttachUsersByDomain?: boolean
   avatarUrl?: boolean
@@ -1175,7 +1142,6 @@ export type OrganizationSelectScalar = {
   id?: boolean
   name?: boolean
   slug?: boolean
-  type?: boolean
   domain?: boolean
   shouldAttachUsersByDomain?: boolean
   avatarUrl?: boolean
@@ -1184,14 +1150,14 @@ export type OrganizationSelectScalar = {
   ownerId?: boolean
 }
 
-export type OrganizationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "type" | "domain" | "shouldAttachUsersByDomain" | "avatarUrl" | "createdAt" | "updatedAt" | "ownerId", ExtArgs["result"]["organization"]>
+export type OrganizationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "domain" | "shouldAttachUsersByDomain" | "avatarUrl" | "createdAt" | "updatedAt" | "ownerId", ExtArgs["result"]["organization"]>
 export type OrganizationInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  address?: boolean | Prisma.Organization$addressArgs<ExtArgs>
+  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   invites?: boolean | Prisma.Organization$invitesArgs<ExtArgs>
   members?: boolean | Prisma.Organization$membersArgs<ExtArgs>
-  owner?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  clientProfile?: boolean | Prisma.Organization$clientProfileArgs<ExtArgs>
-  providerProfile?: boolean | Prisma.Organization$providerProfileArgs<ExtArgs>
+  projects?: boolean | Prisma.Organization$projectsArgs<ExtArgs>
+  estimates?: boolean | Prisma.Organization$estimatesArgs<ExtArgs>
+  clockinRegisters?: boolean | Prisma.Organization$clockinRegistersArgs<ExtArgs>
   _count?: boolean | Prisma.OrganizationCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type OrganizationIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1204,18 +1170,17 @@ export type OrganizationIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types
 export type $OrganizationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Organization"
   objects: {
-    address: Prisma.$AddressPayload<ExtArgs>[]
+    owner: Prisma.$UserPayload<ExtArgs>
     invites: Prisma.$InvitePayload<ExtArgs>[]
     members: Prisma.$MemberPayload<ExtArgs>[]
-    owner: Prisma.$UserPayload<ExtArgs>
-    clientProfile: Prisma.$ClientProfilePayload<ExtArgs> | null
-    providerProfile: Prisma.$ProviderProfilePayload<ExtArgs> | null
+    projects: Prisma.$ProjectPayload<ExtArgs>[]
+    estimates: Prisma.$EstimatePayload<ExtArgs>[]
+    clockinRegisters: Prisma.$ClockinRegisterPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string | null
     slug: string | null
-    type: $Enums.OrgType
     domain: string | null
     shouldAttachUsersByDomain: boolean
     avatarUrl: string | null
@@ -1616,12 +1581,12 @@ readonly fields: OrganizationFieldRefs;
  */
 export interface Prisma__OrganizationClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  address<T extends Prisma.Organization$addressArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$addressArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AddressPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   invites<T extends Prisma.Organization$invitesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$invitesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$InvitePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   members<T extends Prisma.Organization$membersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$membersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MemberPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  owner<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  clientProfile<T extends Prisma.Organization$clientProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$clientProfileArgs<ExtArgs>>): Prisma.Prisma__ClientProfileClient<runtime.Types.Result.GetResult<Prisma.$ClientProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
-  providerProfile<T extends Prisma.Organization$providerProfileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$providerProfileArgs<ExtArgs>>): Prisma.Prisma__ProviderProfileClient<runtime.Types.Result.GetResult<Prisma.$ProviderProfilePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  projects<T extends Prisma.Organization$projectsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$projectsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProjectPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  estimates<T extends Prisma.Organization$estimatesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$estimatesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$EstimatePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clockinRegisters<T extends Prisma.Organization$clockinRegistersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Organization$clockinRegistersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClockinRegisterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1654,7 +1619,6 @@ export interface OrganizationFieldRefs {
   readonly id: Prisma.FieldRef<"Organization", 'String'>
   readonly name: Prisma.FieldRef<"Organization", 'String'>
   readonly slug: Prisma.FieldRef<"Organization", 'String'>
-  readonly type: Prisma.FieldRef<"Organization", 'OrgType'>
   readonly domain: Prisma.FieldRef<"Organization", 'String'>
   readonly shouldAttachUsersByDomain: Prisma.FieldRef<"Organization", 'Boolean'>
   readonly avatarUrl: Prisma.FieldRef<"Organization", 'String'>
@@ -2057,30 +2021,6 @@ export type OrganizationDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
 }
 
 /**
- * Organization.address
- */
-export type Organization$addressArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Address
-   */
-  select?: Prisma.AddressSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Address
-   */
-  omit?: Prisma.AddressOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.AddressInclude<ExtArgs> | null
-  where?: Prisma.AddressWhereInput
-  orderBy?: Prisma.AddressOrderByWithRelationInput | Prisma.AddressOrderByWithRelationInput[]
-  cursor?: Prisma.AddressWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.AddressScalarFieldEnum | Prisma.AddressScalarFieldEnum[]
-}
-
-/**
  * Organization.invites
  */
 export type Organization$invitesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2129,41 +2069,75 @@ export type Organization$membersArgs<ExtArgs extends runtime.Types.Extensions.In
 }
 
 /**
- * Organization.clientProfile
+ * Organization.projects
  */
-export type Organization$clientProfileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Organization$projectsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the ClientProfile
+   * Select specific fields to fetch from the Project
    */
-  select?: Prisma.ClientProfileSelect<ExtArgs> | null
+  select?: Prisma.ProjectSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the ClientProfile
+   * Omit specific fields from the Project
    */
-  omit?: Prisma.ClientProfileOmit<ExtArgs> | null
+  omit?: Prisma.ProjectOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ClientProfileInclude<ExtArgs> | null
-  where?: Prisma.ClientProfileWhereInput
+  include?: Prisma.ProjectInclude<ExtArgs> | null
+  where?: Prisma.ProjectWhereInput
+  orderBy?: Prisma.ProjectOrderByWithRelationInput | Prisma.ProjectOrderByWithRelationInput[]
+  cursor?: Prisma.ProjectWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProjectScalarFieldEnum | Prisma.ProjectScalarFieldEnum[]
 }
 
 /**
- * Organization.providerProfile
+ * Organization.estimates
  */
-export type Organization$providerProfileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type Organization$estimatesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the ProviderProfile
+   * Select specific fields to fetch from the Estimate
    */
-  select?: Prisma.ProviderProfileSelect<ExtArgs> | null
+  select?: Prisma.EstimateSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the ProviderProfile
+   * Omit specific fields from the Estimate
    */
-  omit?: Prisma.ProviderProfileOmit<ExtArgs> | null
+  omit?: Prisma.EstimateOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ProviderProfileInclude<ExtArgs> | null
-  where?: Prisma.ProviderProfileWhereInput
+  include?: Prisma.EstimateInclude<ExtArgs> | null
+  where?: Prisma.EstimateWhereInput
+  orderBy?: Prisma.EstimateOrderByWithRelationInput | Prisma.EstimateOrderByWithRelationInput[]
+  cursor?: Prisma.EstimateWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.EstimateScalarFieldEnum | Prisma.EstimateScalarFieldEnum[]
+}
+
+/**
+ * Organization.clockinRegisters
+ */
+export type Organization$clockinRegistersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClockinRegister
+   */
+  select?: Prisma.ClockinRegisterSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClockinRegister
+   */
+  omit?: Prisma.ClockinRegisterOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClockinRegisterInclude<ExtArgs> | null
+  where?: Prisma.ClockinRegisterWhereInput
+  orderBy?: Prisma.ClockinRegisterOrderByWithRelationInput | Prisma.ClockinRegisterOrderByWithRelationInput[]
+  cursor?: Prisma.ClockinRegisterWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClockinRegisterScalarFieldEnum | Prisma.ClockinRegisterScalarFieldEnum[]
 }
 
 /**

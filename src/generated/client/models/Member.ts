@@ -174,8 +174,9 @@ export type MemberWhereInput = {
   role?: Prisma.EnumRoleFilter<"Member"> | $Enums.Role
   userId?: Prisma.StringFilter<"Member"> | string
   organizationId?: Prisma.StringFilter<"Member"> | string
-  organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  clockinRegisters?: Prisma.ClockinRegisterListRelationFilter
 }
 
 export type MemberOrderByWithRelationInput = {
@@ -183,8 +184,9 @@ export type MemberOrderByWithRelationInput = {
   role?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   organizationId?: Prisma.SortOrder
-  organization?: Prisma.OrganizationOrderByWithRelationInput
   user?: Prisma.UserOrderByWithRelationInput
+  organization?: Prisma.OrganizationOrderByWithRelationInput
+  clockinRegisters?: Prisma.ClockinRegisterOrderByRelationAggregateInput
 }
 
 export type MemberWhereUniqueInput = Prisma.AtLeast<{
@@ -195,8 +197,9 @@ export type MemberWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.MemberWhereInput | Prisma.MemberWhereInput[]
   role?: Prisma.EnumRoleFilter<"Member"> | $Enums.Role
   organizationId?: Prisma.StringFilter<"Member"> | string
-  organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  organization?: Prisma.XOR<Prisma.OrganizationScalarRelationFilter, Prisma.OrganizationWhereInput>
+  clockinRegisters?: Prisma.ClockinRegisterListRelationFilter
 }, "id" | "userId">
 
 export type MemberOrderByWithAggregationInput = {
@@ -222,8 +225,9 @@ export type MemberScalarWhereWithAggregatesInput = {
 export type MemberCreateInput = {
   id?: string
   role?: $Enums.Role
-  organization: Prisma.OrganizationCreateNestedOneWithoutMembersInput
   user: Prisma.UserCreateNestedOneWithoutMemberInput
+  organization: Prisma.OrganizationCreateNestedOneWithoutMembersInput
+  clockinRegisters?: Prisma.ClockinRegisterCreateNestedManyWithoutMemberInput
 }
 
 export type MemberUncheckedCreateInput = {
@@ -231,13 +235,15 @@ export type MemberUncheckedCreateInput = {
   role?: $Enums.Role
   userId: string
   organizationId: string
+  clockinRegisters?: Prisma.ClockinRegisterUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
-  organization?: Prisma.OrganizationUpdateOneRequiredWithoutMembersNestedInput
   user?: Prisma.UserUpdateOneRequiredWithoutMemberNestedInput
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutMembersNestedInput
+  clockinRegisters?: Prisma.ClockinRegisterUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberUncheckedUpdateInput = {
@@ -245,6 +251,7 @@ export type MemberUncheckedUpdateInput = {
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  clockinRegisters?: Prisma.ClockinRegisterUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberCreateManyInput = {
@@ -292,6 +299,11 @@ export type MemberMinOrderByAggregateInput = {
   organizationId?: Prisma.SortOrder
 }
 
+export type MemberScalarRelationFilter = {
+  is?: Prisma.MemberWhereInput
+  isNot?: Prisma.MemberWhereInput
+}
+
 export type MemberListRelationFilter = {
   every?: Prisma.MemberWhereInput
   some?: Prisma.MemberWhereInput
@@ -332,6 +344,20 @@ export type MemberUncheckedUpdateOneWithoutUserNestedInput = {
   delete?: Prisma.MemberWhereInput | boolean
   connect?: Prisma.MemberWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.MemberUpdateToOneWithWhereWithoutUserInput, Prisma.MemberUpdateWithoutUserInput>, Prisma.MemberUncheckedUpdateWithoutUserInput>
+}
+
+export type MemberCreateNestedOneWithoutClockinRegistersInput = {
+  create?: Prisma.XOR<Prisma.MemberCreateWithoutClockinRegistersInput, Prisma.MemberUncheckedCreateWithoutClockinRegistersInput>
+  connectOrCreate?: Prisma.MemberCreateOrConnectWithoutClockinRegistersInput
+  connect?: Prisma.MemberWhereUniqueInput
+}
+
+export type MemberUpdateOneRequiredWithoutClockinRegistersNestedInput = {
+  create?: Prisma.XOR<Prisma.MemberCreateWithoutClockinRegistersInput, Prisma.MemberUncheckedCreateWithoutClockinRegistersInput>
+  connectOrCreate?: Prisma.MemberCreateOrConnectWithoutClockinRegistersInput
+  upsert?: Prisma.MemberUpsertWithoutClockinRegistersInput
+  connect?: Prisma.MemberWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.MemberUpdateToOneWithWhereWithoutClockinRegistersInput, Prisma.MemberUpdateWithoutClockinRegistersInput>, Prisma.MemberUncheckedUpdateWithoutClockinRegistersInput>
 }
 
 export type MemberCreateNestedManyWithoutOrganizationInput = {
@@ -380,12 +406,14 @@ export type MemberCreateWithoutUserInput = {
   id?: string
   role?: $Enums.Role
   organization: Prisma.OrganizationCreateNestedOneWithoutMembersInput
+  clockinRegisters?: Prisma.ClockinRegisterCreateNestedManyWithoutMemberInput
 }
 
 export type MemberUncheckedCreateWithoutUserInput = {
   id?: string
   role?: $Enums.Role
   organizationId: string
+  clockinRegisters?: Prisma.ClockinRegisterUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberCreateOrConnectWithoutUserInput = {
@@ -408,11 +436,57 @@ export type MemberUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   organization?: Prisma.OrganizationUpdateOneRequiredWithoutMembersNestedInput
+  clockinRegisters?: Prisma.ClockinRegisterUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  organizationId?: Prisma.StringFieldUpdateOperationsInput | string
+  clockinRegisters?: Prisma.ClockinRegisterUncheckedUpdateManyWithoutMemberNestedInput
+}
+
+export type MemberCreateWithoutClockinRegistersInput = {
+  id?: string
+  role?: $Enums.Role
+  user: Prisma.UserCreateNestedOneWithoutMemberInput
+  organization: Prisma.OrganizationCreateNestedOneWithoutMembersInput
+}
+
+export type MemberUncheckedCreateWithoutClockinRegistersInput = {
+  id?: string
+  role?: $Enums.Role
+  userId: string
+  organizationId: string
+}
+
+export type MemberCreateOrConnectWithoutClockinRegistersInput = {
+  where: Prisma.MemberWhereUniqueInput
+  create: Prisma.XOR<Prisma.MemberCreateWithoutClockinRegistersInput, Prisma.MemberUncheckedCreateWithoutClockinRegistersInput>
+}
+
+export type MemberUpsertWithoutClockinRegistersInput = {
+  update: Prisma.XOR<Prisma.MemberUpdateWithoutClockinRegistersInput, Prisma.MemberUncheckedUpdateWithoutClockinRegistersInput>
+  create: Prisma.XOR<Prisma.MemberCreateWithoutClockinRegistersInput, Prisma.MemberUncheckedCreateWithoutClockinRegistersInput>
+  where?: Prisma.MemberWhereInput
+}
+
+export type MemberUpdateToOneWithWhereWithoutClockinRegistersInput = {
+  where?: Prisma.MemberWhereInput
+  data: Prisma.XOR<Prisma.MemberUpdateWithoutClockinRegistersInput, Prisma.MemberUncheckedUpdateWithoutClockinRegistersInput>
+}
+
+export type MemberUpdateWithoutClockinRegistersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  user?: Prisma.UserUpdateOneRequiredWithoutMemberNestedInput
+  organization?: Prisma.OrganizationUpdateOneRequiredWithoutMembersNestedInput
+}
+
+export type MemberUncheckedUpdateWithoutClockinRegistersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
   organizationId?: Prisma.StringFieldUpdateOperationsInput | string
 }
 
@@ -420,12 +494,14 @@ export type MemberCreateWithoutOrganizationInput = {
   id?: string
   role?: $Enums.Role
   user: Prisma.UserCreateNestedOneWithoutMemberInput
+  clockinRegisters?: Prisma.ClockinRegisterCreateNestedManyWithoutMemberInput
 }
 
 export type MemberUncheckedCreateWithoutOrganizationInput = {
   id?: string
   role?: $Enums.Role
   userId: string
+  clockinRegisters?: Prisma.ClockinRegisterUncheckedCreateNestedManyWithoutMemberInput
 }
 
 export type MemberCreateOrConnectWithoutOrganizationInput = {
@@ -474,12 +550,14 @@ export type MemberUpdateWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   user?: Prisma.UserUpdateOneRequiredWithoutMemberNestedInput
+  clockinRegisters?: Prisma.ClockinRegisterUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberUncheckedUpdateWithoutOrganizationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.EnumRoleFieldUpdateOperationsInput | $Enums.Role
   userId?: Prisma.StringFieldUpdateOperationsInput | string
+  clockinRegisters?: Prisma.ClockinRegisterUncheckedUpdateManyWithoutMemberNestedInput
 }
 
 export type MemberUncheckedUpdateManyWithoutOrganizationInput = {
@@ -489,14 +567,45 @@ export type MemberUncheckedUpdateManyWithoutOrganizationInput = {
 }
 
 
+/**
+ * Count Type MemberCountOutputType
+ */
+
+export type MemberCountOutputType = {
+  clockinRegisters: number
+}
+
+export type MemberCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  clockinRegisters?: boolean | MemberCountOutputTypeCountClockinRegistersArgs
+}
+
+/**
+ * MemberCountOutputType without action
+ */
+export type MemberCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the MemberCountOutputType
+   */
+  select?: Prisma.MemberCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * MemberCountOutputType without action
+ */
+export type MemberCountOutputTypeCountClockinRegistersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClockinRegisterWhereInput
+}
+
 
 export type MemberSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   role?: boolean
   userId?: boolean
   organizationId?: boolean
-  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  clockinRegisters?: boolean | Prisma.Member$clockinRegistersArgs<ExtArgs>
+  _count?: boolean | Prisma.MemberCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["member"]>
 
 export type MemberSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -504,8 +613,8 @@ export type MemberSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extens
   role?: boolean
   userId?: boolean
   organizationId?: boolean
-  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["member"]>
 
 export type MemberSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -513,8 +622,8 @@ export type MemberSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extens
   role?: boolean
   userId?: boolean
   organizationId?: boolean
-  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["member"]>
 
 export type MemberSelectScalar = {
@@ -526,23 +635,26 @@ export type MemberSelectScalar = {
 
 export type MemberOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "role" | "userId" | "organizationId", ExtArgs["result"]["member"]>
 export type MemberInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
+  clockinRegisters?: boolean | Prisma.Member$clockinRegistersArgs<ExtArgs>
+  _count?: boolean | Prisma.MemberCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type MemberIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }
 export type MemberIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  organization?: boolean | Prisma.OrganizationDefaultArgs<ExtArgs>
 }
 
 export type $MemberPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Member"
   objects: {
-    organization: Prisma.$OrganizationPayload<ExtArgs>
     user: Prisma.$UserPayload<ExtArgs>
+    organization: Prisma.$OrganizationPayload<ExtArgs>
+    clockinRegisters: Prisma.$ClockinRegisterPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -943,8 +1055,9 @@ readonly fields: MemberFieldRefs;
  */
 export interface Prisma__MemberClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  organization<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  organization<T extends Prisma.OrganizationDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.OrganizationDefaultArgs<ExtArgs>>): Prisma.Prisma__OrganizationClient<runtime.Types.Result.GetResult<Prisma.$OrganizationPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  clockinRegisters<T extends Prisma.Member$clockinRegistersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Member$clockinRegistersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClockinRegisterPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1371,6 +1484,30 @@ export type MemberDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Intern
    * Limit how many Members to delete.
    */
   limit?: number
+}
+
+/**
+ * Member.clockinRegisters
+ */
+export type Member$clockinRegistersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClockinRegister
+   */
+  select?: Prisma.ClockinRegisterSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClockinRegister
+   */
+  omit?: Prisma.ClockinRegisterOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClockinRegisterInclude<ExtArgs> | null
+  where?: Prisma.ClockinRegisterWhereInput
+  orderBy?: Prisma.ClockinRegisterOrderByWithRelationInput | Prisma.ClockinRegisterOrderByWithRelationInput[]
+  cursor?: Prisma.ClockinRegisterWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClockinRegisterScalarFieldEnum | Prisma.ClockinRegisterScalarFieldEnum[]
 }
 
 /**
